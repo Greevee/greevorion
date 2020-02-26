@@ -4,7 +4,7 @@ table.insert(WeaponTypes,{type = WeaponType.DeepCoreMiner, name = "DeepCoreMiner
 table.insert(WeaponTypes,{type = WeaponType.Miner, name = "Miner"})
 table.insert(WeaponTypes,{type = WeaponType.Artillery, name = "Artillery"})
 table.insert(WeaponTypes,{type = WeaponType.Autocannon, name = "Autocannon"})
-table.insert(WeaponTypes,{type = WeaponType.Schienenkanone, name = "Schienenkanone"})
+table.insert(WeaponTypes,{type = WeaponType.Railgun, name = "Railgun"})
 table.insert(WeaponTypes,{type = WeaponType.Blaster, name = "Blaster"})
 table.insert(WeaponTypes,{type = WeaponType.LRM, name = "LRM"})
 table.insert(WeaponTypes,{type = WeaponType.SRM, name = "SRM"})

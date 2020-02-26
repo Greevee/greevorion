@@ -6,7 +6,7 @@
 
 -- new weapons
 weaponProbabilities[WeaponType.Blaster] = {p = 1.0}
-weaponProbabilities[WeaponType.Schienenkanone] = {d = 0.7, p = 0.5}
+weaponProbabilities[WeaponType.Railgun] = {d = 0.7, p = 0.5}
 weaponProbabilities[WeaponType.LRM] = {p = 1.0}
 weaponProbabilities[WeaponType.SRM] = {p = 1.0}
 weaponProbabilities[WeaponType.Autocannon] = {p = 1.0}

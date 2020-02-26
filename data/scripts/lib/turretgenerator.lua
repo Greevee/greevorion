@@ -260,7 +260,7 @@ Specialty = {
 }
 
 
-scales[WeaponType.Schienenkanone] = {
+scales[WeaponType.Railgun] = {
     {from = 0, to = 28, size = 1.0, usedSlots = 2},
     {from = 29, to = 35, size = 1.5, usedSlots = 3},
     {from = 36, to = 42, size = 2.0, usedSlots = 4},
@@ -384,7 +384,7 @@ possibleSpecialties[WeaponType.Blaster] = {
     Specialty.Efficient,
     Specialty.ShieldShred,
 }
-possibleSpecialties[WeaponType.Schienenkanone] = {
+possibleSpecialties[WeaponType.Railgun] = {
     Specialty.ExtendedRange,
     Specialty.Dampener,
     Specialty.Hypercharged,
@@ -493,7 +493,7 @@ function TurretGenerator.generateBlaster(rand, dps, tech, material, rarity)
     return result
 end
 
-function TurretGenerator.generateSchienenkanone(rand, dps, tech, material, rarity)
+function TurretGenerator.generateRailgun(rand, dps, tech, material, rarity)
 
     local result = TurretTemplate()
 
@@ -508,7 +508,7 @@ function TurretGenerator.generateSchienenkanone(rand, dps, tech, material, rarit
     local weapons = {1, 1, 2, 3}
     local numWeapons = weapons[rand:getInt(1, #weapons)]
 
-    local weapon = WeaponGenerator.generateSchienenkanone(rand, dps, tech, material, rarity)
+    local weapon = WeaponGenerator.generateRailgun(rand, dps, tech, material, rarity)
     weapon.fireDelay = weapon.fireDelay * numWeapons
     weapon.damage= weapon.damage * dmgMod
     -- attach weapons to turret
@@ -518,8 +518,8 @@ function TurretGenerator.generateSchienenkanone(rand, dps, tech, material, rarit
     local capacity = 5-- number of shots
     TurretGenerator.createBatteryDrainConstant(result, energyMultiplayer, capacity)
 
-    TurretGenerator.scale(rand, result, WeaponType.Schienenkanone, tech, 0.4)
-    TurretGenerator.addSpecialties(rand, result, WeaponType.Schienenkanone)
+    TurretGenerator.scale(rand, result, WeaponType.Railgun, tech, 0.4)
+    TurretGenerator.addSpecialties(rand, result, WeaponType.Railgun)
     return result
 end
 
@@ -1100,7 +1100,7 @@ end
 
 
 generatorFunction[WeaponType.Blaster] = TurretGenerator.generateBlaster
-generatorFunction[WeaponType.Schienenkanone] = TurretGenerator.generateSchienenkanone
+generatorFunction[WeaponType.Railgun] = TurretGenerator.generateRailgun
 generatorFunction[WeaponType.LRM] = TurretGenerator.generateLRM
 generatorFunction[WeaponType.SRM] = TurretGenerator.generateSRM
 generatorFunction[WeaponType.Autocannon] = TurretGenerator.generateAutocannon

@@ -4,7 +4,7 @@ end
 
 -- hybrid weapon 
 WeaponTypes.addType("Blaster", "Blaster /* Weapon Type */"%_t, armed)
-WeaponTypes.addType("Schienenkanone", "Schienenkanone /* Weapon Type */"%_t, armed)
+WeaponTypes.addType("Railgun", "Railgun /* Weapon Type */"%_t, armed)
 WeaponTypes.addType("PPC", "PPC /* Weapon Type */"%_t, armed)  -- shield dmg, wenig armor dmg
 
 

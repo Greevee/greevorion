@@ -1,7 +1,7 @@
 AttackWeapons =
 {
     WeaponType.Blaster,
-    WeaponType.Schienenkanone,
+    WeaponType.Railgun,
     WeaponType.LRM,
     WeaponType.SRM,
     WeaponType.Autocannon,
@@ -34,7 +34,7 @@ ShipUtility.AntiHullWeapons = AntiHullWeapons
 
 ArtilleryWeapons =
 {
-    WeaponType.Schienenkanone,
+    WeaponType.Railgun,
     WeaponType.Artillery,
     WeaponType.LRM,
     WeaponType.PPC,

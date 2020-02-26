@@ -2,7 +2,7 @@ function generateTurret()
     local weaponTypes = {}
 	
 	weaponTypes[WeaponType.Blaster] = 1
-	weaponTypes[WeaponType.Schienenkanone]= 1
+	weaponTypes[WeaponType.Railgun]= 1
 	weaponTypes[WeaponType.LRM] = 1
 	weaponTypes[WeaponType.SRM] = 1
 	weaponTypes[WeaponType.Autocannon] = 1

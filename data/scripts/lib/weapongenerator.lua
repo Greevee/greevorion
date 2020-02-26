@@ -57,8 +57,8 @@ function WeaponGenerator.generateBlaster(rand, dps, tech, material, rarity)
     return weapon
 end
 
-function WeaponGenerator.generateSchienenkanone(rand, dps, tech, material, rarity)
-    
+function WeaponGenerator.generateRailgun(rand, dps, tech, material, rarity)
+
     local weapon = Weapon()
     weapon:setBeam()
     local rarityFactor = rand:getFloat(0, rarity.value / HighestRarity().value)
@@ -876,25 +876,23 @@ function getRangeMod(rarity, maxMod)
     return 1+ (((rarity.value+1)/6)*maxMod)
 end
 
-generatorFunction[WeaponType.Blaster] = WeaponGenerator.generateBlaster
-generatorFunction[WeaponType.Schienenkanone] = WeaponGenerator.generateSchienenkanone
-generatorFunction[WeaponType.LRM] = WeaponGenerator.generateSRM
-generatorFunction[WeaponType.SRM] = WeaponGenerator.generateLRM
-generatorFunction[WeaponType.Autocannon] = WeaponGenerator.generateAutocannon
-generatorFunction[WeaponType.Artillery] = WeaponGenerator.generateArtillery
-generatorFunction[WeaponType.Beamlaser] = WeaponGenerator.generateBeamlaser
-generatorFunction[WeaponType.Pulselaser] = WeaponGenerator.generatePulselaser
-generatorFunction[WeaponType.PPC] = WeaponGenerator.generatePPC
+generatorFunction[WeaponType.Blaster]         = WeaponGenerator.generateBlaster
+generatorFunction[WeaponType.PPC]             = WeaponGenerator.generatePPC -- particle projector cannon. remove? we have a blaster
+generatorFunction[WeaponType.Railgun]         = WeaponGenerator.generateRailgun
+generatorFunction[WeaponType.LBX]             = WeaponGenerator.generateLBX -- dumb fire swarm missile. doubdt someone will ever use it
+generatorFunction[WeaponType.SRM]             = WeaponGenerator.generateSRM -- short range missile
+generatorFunction[WeaponType.LRM]             = WeaponGenerator.generateLRM -- long range missile
+generatorFunction[WeaponType.Autocannon]      = WeaponGenerator.generateAutocannon
+generatorFunction[WeaponType.HCG]             = WeaponGenerator.generateHCG -- heavy chaingun
+generatorFunction[WeaponType.Artillery]       = WeaponGenerator.generateArtillery
+generatorFunction[WeaponType.Beamlaser]       = WeaponGenerator.generateBeamlaser
+generatorFunction[WeaponType.Pulselaser]      = WeaponGenerator.generatePulselaser
 generatorFunction[WeaponType.TorpedoLauncher] = WeaponGenerator.generateTorpedoLauncher
-generatorFunction[WeaponType.LBX] = WeaponGenerator.generateLBX
-generatorFunction[WeaponType.HCG] = WeaponGenerator.generateHCG
 
 generatorFunction[WeaponType.Miner] = WeaponGenerator.generateMiner
 generatorFunction[WeaponType.DeepCoreMiner] = WeaponGenerator.generateDeepCoreMiner
 generatorFunction[WeaponType.Salvager] = WeaponGenerator.generateSalvager
 generatorFunction[WeaponType.Redeemer] = WeaponGenerator.generateRedeemer
-
-
 
 --experimental
 generatorFunction[WeaponType.Judgement] = WeaponGenerator.Judgement
