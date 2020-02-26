@@ -5,7 +5,6 @@ function TurretGenerator.addSpecialties(rand, turret, type)
     local specialties = {}
 
     -- direct specilistation need to be inserted here
-
     for _, s in pairs(possibleSpecialties[type]) do
         table.insert(specialties, s)
     end
@@ -104,7 +103,7 @@ function TurretGenerator.addSpecialties(rand, turret, type)
             local maxIncrease = 0.15
             local increase = 0.05 + rarityFactor * maxIncrease
 
-            turret.heatPerShot =  turret.heatPerShot  * (1 - increase)
+            turret.heatPerShot = turret.heatPerShot * (1 - increase)
 
             local addition = math.floor(increase * 100)
             turret:addDescription("Efficient: -%s%% Energy drain"%_T, string.format("%-i", addition))
@@ -187,7 +186,7 @@ function TurretGenerator.scale(rand, turret, type, tech, turnSpeedFactor)
     turret.turningSpeed = lerp(turret.size, 0.5, 3, 1, 0.3) * rand:getFloat(0.8, 1.2) * turnSpeedFactor
 
     local weapons = {turret:getWeapons()}
-    local nrWeapons= #weapons
+    local nrWeapons = #weapons
     local dmgMod = 1
     if nrWeapons >1 then
         dmgMod = ((nrWeapons*0.05 )+1) / nrWeapons
@@ -482,8 +481,6 @@ possibleSpecialties[WeaponType.HCG] = {
     Specialty.ExtendedRange,
 }
 
-
-
 function TurretGenerator.generateBlaster(rand, dps, tech, material, rarity)
     local result = TurretTemplate()
     -- generate turret
@@ -492,26 +489,22 @@ function TurretGenerator.generateBlaster(rand, dps, tech, material, rarity)
     crew:add(requiredCrew, CrewMan(CrewProfessionType.Gunner))
     result.crew = crew
 
-
     -- generate weapons
-    local dmgMod=  1.4
+    local dmgMod = 1.4
     local weapons = {2, 2, 2, 4}
     local numWeapons = weapons[rand:getInt(1, #weapons)]
-
     local weapon = WeaponGenerator.generateBlaster(rand, dps, tech, material, rarity)
     weapon.fireDelay = weapon.fireDelay * numWeapons
-    weapon.damage= weapon.damage * dmgMod
+    weapon.damage = weapon.damage * dmgMod
     -- attach weapons to turret
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
 
-    local energyMultiplayer = 100 *dps --
-    local capacity= 10
+    local energyMultiplayer = 100 * dps
+    local capacity = 10
     TurretGenerator.createBatteryDrainConstant(result, energyMultiplayer, capacity)
 
     TurretGenerator.scale(rand, result, WeaponType.Blaster, tech, 0.75)
     TurretGenerator.addSpecialties(rand, result, WeaponType.Blaster)
-
-
 
     return result
 end
@@ -527,17 +520,16 @@ function TurretGenerator.generateRailgun(rand, dps, tech, material, rarity)
     result.crew = crew
 
     -- generate weapons
-    local dmgMod=  0.8
+    local dmgMod = 0.8
     local weapons = {1, 1, 2, 3}
     local numWeapons = weapons[rand:getInt(1, #weapons)]
-
     local weapon = WeaponGenerator.generateRailgun(rand, dps, tech, material, rarity)
     weapon.fireDelay = weapon.fireDelay * numWeapons
-    weapon.damage= weapon.damage * dmgMod
+    weapon.damage = weapon.damage * dmgMod
     -- attach weapons to turret
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
 
-    local energyMultiplayer = 120* dps
+    local energyMultiplayer = 120 * dps
     local capacity = 5-- number of shots
     TurretGenerator.createBatteryDrainConstant(result, energyMultiplayer, capacity)
 
@@ -557,7 +549,6 @@ function TurretGenerator.generateJudgement(rand, dps, tech, material, rarity)
 
     -- generate weapons
     local numWeapons = 1
-
     local weapon = WeaponGenerator.generateJudgement(rand, dps, tech, material, rarity)
     weapon.fireDelay = weapon.fireDelay * numWeapons
 
@@ -567,7 +558,6 @@ function TurretGenerator.generateJudgement(rand, dps, tech, material, rarity)
     local shootingTime = 10
     local coolingTime = 360
     TurretGenerator.createStandardCooling(result, coolingTime, shootingTime)
-
     TurretGenerator.scale(rand, result, WeaponType.Judgement, tech, 0.1)
     TurretGenerator.addSpecialties(rand, result, WeaponType.Judgement)
 
@@ -583,16 +573,14 @@ function TurretGenerator.generateLRM(rand, dps, tech, material, rarity)
     result.crew = crew
 
     -- generate weapons
-    local dmgMod=  0.3
+    local dmgMod = 0.3
     local weapons = {1, 1, 2, 4}
     local numWeapons = weapons[rand:getInt(1, #weapons)]
-
     local weapon = WeaponGenerator.generateLRM(rand, dps, tech, material, rarity)
     weapon.fireDelay = weapon.fireDelay * numWeapons
-    weapon.damage= weapon.damage * dmgMod
+    weapon.damage = weapon.damage * dmgMod
     -- attach weapons to turret
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
-
     TurretGenerator.scale(rand, result, WeaponType.LRM, tech, 0.6)
     TurretGenerator.addSpecialties(rand, result, WeaponType.LRM)
 
@@ -611,19 +599,17 @@ function TurretGenerator.generateTorpedoLauncher(rand, dps, tech, material, rari
     result.crew = crew
 
     -- generate weapons
-    local dmgMod=  3
+    local dmgMod = 3
     local weapons = {1, 1, 1, 2, 4}
     local numWeapons = weapons[rand:getInt(1, #weapons)]
-
     local weapon = WeaponGenerator.generateTorpedoLauncher(rand, dps, tech, material, rarity)
     weapon.fireDelay = weapon.fireDelay * numWeapons
-    weapon.damage= weapon.damage * dmgMod
+    weapon.damage = weapon.damage * dmgMod
     -- attach weapons to turret
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
 
-    local capacity= 3
+    local capacity = 3
     TurretGenerator.createCoolDownDynamic(result, capacity, 0.4)
-
     TurretGenerator.scale(rand, result, WeaponType.TorpedoLauncher, tech, 0.3)
     TurretGenerator.addSpecialties(rand, result, WeaponType.TorpedoLauncher)
 
@@ -645,12 +631,10 @@ function TurretGenerator.generateSRM(rand, dps, tech, material, rarity)
     local dmgMod = 0.8
     local weapons = {2, 2, 4, 4}
     local numWeapons = weapons[rand:getInt(1, #weapons)]
-
     local weapon = WeaponGenerator.generateSRM(rand, dps, tech, material, rarity)
     weapon.fireDelay = weapon.fireDelay * numWeapons
-    weapon.damage= weapon.damage * dmgMod
+    weapon.damage = weapon.damage * dmgMod
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
-
     TurretGenerator.scale(rand, result, WeaponType.SRM, tech, 0.6)
     TurretGenerator.addSpecialties(rand, result, WeaponType.SRM)
 
@@ -669,17 +653,14 @@ function TurretGenerator.generateArtillery(rand, dps, tech, material, rarity)
     result.crew = crew
 
     -- generate weapons
-    local dmgMod=  1
+    local dmgMod = 1
     local weapons = {1, 1, 1, 2}
     local numWeapons = weapons[rand:getInt(1, #weapons)]
-
     local weapon = WeaponGenerator.generateArtillery(rand, dps, tech, material, rarity)
     weapon.fireDelay = weapon.fireDelay * numWeapons
-    weapon.damage= weapon.damage * dmgMod
+    weapon.damage = weapon.damage * dmgMod
     -- attach weapons to turret
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
-
-
     TurretGenerator.scale(rand, result, WeaponType.Artillery, tech, 0.3)
     TurretGenerator.addSpecialties(rand, result, WeaponType.Artillery)
 
@@ -700,22 +681,18 @@ function TurretGenerator.generatePPC(rand, dps, tech, material, rarity)
     result.crew = crew
 
     -- generate weapons
-    local dmgMod=  0.9
+    local dmgMod = 0.9
     local weapons = {1, 1, 1, 2, 2}
     local numWeapons = weapons[rand:getInt(1, #weapons)]
-
     local weapon = WeaponGenerator.generatePPC(rand, dps, tech, material, rarity)
     weapon.fireDelay = weapon.fireDelay * numWeapons
-    weapon.damage= weapon.damage * dmgMod
+    weapon.damage = weapon.damage * dmgMod
     -- attach weapons to turret
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
 
-    local energyMultiplayer = 300* dps
+    local energyMultiplayer = 300 * dps
     local capacity = 5-- number of shots
     TurretGenerator.createBatteryDrainConstant(result, energyMultiplayer, capacity)
-
-
-
     TurretGenerator.scale(rand, result, WeaponType.PPC, tech, 0.5)
     TurretGenerator.addSpecialties(rand, result, WeaponType.PPC)
 
@@ -734,16 +711,14 @@ function TurretGenerator.generateAutocannon(rand, dps, tech, material, rarity)
     result.crew = crew
 
     -- generate weapons
-    local dmgMod=  1
+    local dmgMod = 1
     local weapons = {1, 2, 3, 4}
     local numWeapons = weapons[rand:getInt(1, #weapons)]
-
     local weapon = WeaponGenerator.generateAutocannon(rand, dps, tech, material, rarity)
     weapon.fireDelay = weapon.fireDelay * numWeapons
-    weapon.damage= weapon.damage * dmgMod
+    weapon.damage = weapon.damage * dmgMod
     -- attach weapons to turret
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
-
     TurretGenerator.scale(rand, result, WeaponType.Autocannon, tech, 1)
     TurretGenerator.addSpecialties(rand, result, WeaponType.Autocannon)
 
@@ -762,9 +737,8 @@ function TurretGenerator.generateMiner(rand, dps, tech, material, rarity)
     result.crew = crew
 
     -- generate weapons
-    local dmgMod=  0.5
+    local dmgMod = 0.5
     local numWeapons = 1
-
     local weapon = WeaponGenerator.generateMiner(rand, dps, tech, material, rarity)
     weapon.damage = weapon.damage / numWeapons
     weapon.damage = weapon.damage * dmgMod
@@ -775,11 +749,9 @@ function TurretGenerator.generateMiner(rand, dps, tech, material, rarity)
     local percentage = math.floor(weapon.stoneDamageMultiplicator * 100)
     result:addDescription("%s%% Damage to Stone"%_T, string.format("%+i", percentage))
 
-
-    local energyMultiplayer = 25 *dps --
-    local capacity= 10
+    local energyMultiplayer = 25 * dps
+    local capacity = 10
     TurretGenerator.createBatteryDrainConstant(result, energyMultiplayer, capacity)
-
     TurretGenerator.scale(rand, result, WeaponType.Miner, tech, 1)
     TurretGenerator.addSpecialties(rand, result, WeaponType.Miner)
 
@@ -791,7 +763,6 @@ end
 function TurretGenerator.generateDeepCoreMiner(rand, dps, tech, material, rarity)
     local result = TurretTemplate()
 
-
     -- generate turret
     local requiredCrew = TurretGenerator.dpsToRequiredCrew(dps)
     local crew = Crew()
@@ -801,8 +772,7 @@ function TurretGenerator.generateDeepCoreMiner(rand, dps, tech, material, rarity
 
     -- generate weapons
     local numWeapons = 1
-    local dmgMod=  0.75
-
+    local dmgMod = 0.75
     local weapon = WeaponGenerator.generateDeepCoreMiner(rand, dps, tech, material, rarity)
     weapon.damage = weapon.damage / numWeapons
     weapon.damage = weapon.damage * dmgMod
@@ -817,7 +787,6 @@ function TurretGenerator.generateDeepCoreMiner(rand, dps, tech, material, rarity
     local finalenergyMultiplayer = TurretGenerator.getEnergyDrainFactorMining(result, dps,material, energyMultiplayer)
     local capacity = 10-- number of shots
     TurretGenerator.createBatteryDrainConstant(result, finalenergyMultiplayer, capacity)
-
     TurretGenerator.scale(rand, result, WeaponType.DeepCoreMiner, tech, 0.5)
     TurretGenerator.addSpecialties(rand, result, WeaponType.DeepCoreMiner)
 
@@ -837,18 +806,17 @@ function TurretGenerator.generateBeamlaser(rand, dps, tech, material, rarity)
     result.crew = crew
 
     -- generate weapons
-    local dmgMod=  0.7
+    local dmgMod = 0.7
     local weapons = {1, 2}
     local numWeapons = weapons[rand:getInt(1, #weapons)]
-
     local weapon = WeaponGenerator.generateBeamlaser(rand, dps, tech, material, rarity)
     weapon.fireDelay = weapon.fireDelay * numWeapons
-    weapon.damage= weapon.damage * dmgMod
+    weapon.damage = weapon.damage * dmgMod
 
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
 
-    local energyMultiplayer = 200 *dps --
-    local capacity= 10
+    local energyMultiplayer = 200 * dps
+    local capacity = 10
     TurretGenerator.createBatteryDrainDynamic(result, energyMultiplayer, capacity, 0.66)
 
     -- attach weapons to turret
@@ -869,18 +837,17 @@ function TurretGenerator.generatePulselaser(rand, dps, tech, material, rarity)
     result.crew = crew
 
     -- generate weapons
-    local dmgMod=  1.7
+    local dmgMod = 1.7
     local weapons = {1, 2, 3}
     local numWeapons = weapons[rand:getInt(1, #weapons)]
-
     local weapon = WeaponGenerator.generatePulselaser(rand, dps, tech, material, rarity)
     weapon.fireDelay = weapon.fireDelay * numWeapons
-    weapon.damage= weapon.damage * dmgMod
+    weapon.damage = weapon.damage * dmgMod
 
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
 
-    local energyMultiplayer = 200 *dps --
-    local capacity= 10
+    local energyMultiplayer = 200 * dps
+    local capacity = 10
     TurretGenerator.createBatteryDrainDynamic(result, energyMultiplayer, capacity, 0.5)
 
     -- attach weapons to turret
@@ -903,8 +870,7 @@ function TurretGenerator.generateSalvager(rand, dps, tech, material, rarity)
     -- generate weapons
     local weapons = {1, 1, 2, 2 , 4}
     local numWeapons = weapons[rand:getInt(1, #weapons)]
-    local dmgMod=  0.6
-
+    local dmgMod = 0.6
     local weapon = WeaponGenerator.generateSalvager(rand, dps, tech, material, rarity)
     weapon.damage = weapon.damage / numWeapons
     weapon.damage = weapon.damage * dmgMod
@@ -913,13 +879,9 @@ function TurretGenerator.generateSalvager(rand, dps, tech, material, rarity)
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
 
     -- normal mining lasers don't need cooling
-
-
-    local energyMultiplayer = 10 *dps --
-    local capacity= 50
+    local energyMultiplayer = 10 * dps
+    local capacity = 50
     TurretGenerator.createBatteryDrainConstant(result, energyMultiplayer, capacity)
-
-
     TurretGenerator.scale(rand, result, WeaponType.Salvager, tech, 1)
     TurretGenerator.addSpecialties(rand, result, WeaponType.Salvager)
 
@@ -941,17 +903,15 @@ function TurretGenerator.generateRedeemer(rand, dps, tech, material, rarity)
     -- generate weapons
     local weapons = {1, 1, 1, 2}
     local numWeapons = weapons[rand:getInt(1, #weapons)]
-    local dmgMod=  1
-
+    local dmgMod = 1
     local weapon = WeaponGenerator.generateRedeemer(rand, dps, tech, material, rarity)
     weapon.damage = weapon.damage / numWeapons
     weapon.damage = weapon.damage * dmgMod
     -- attach weapons to turret
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
 
-
-    local energyMultiplayer = 400 *dps --
-    local capacity= 20
+    local energyMultiplayer = 400 * dps
+    local capacity = 20
     TurretGenerator.createBatteryDrainConstant(result, energyMultiplayer, capacity)
     -- normal mining lasers don't need cooling
     TurretGenerator.scale(rand, result, WeaponType.Redeemer, tech, 0.5)
@@ -973,8 +933,7 @@ function TurretGenerator.generatePointDefenseChaingunTurret(rand, dps, tech, mat
 
     -- generate weapons
     local numWeapons = rand:getInt(1,4)
-    local dmgMod=  1
-
+    local dmgMod = 1
     local weapon = WeaponGenerator.generatePointDefenseChaingun(rand, dps, tech, material, rarity)
     weapon.fireDelay = weapon.fireDelay * numWeapons
     weapon.damage = weapon.damage * dmgMod
@@ -984,7 +943,6 @@ function TurretGenerator.generatePointDefenseChaingunTurret(rand, dps, tech, mat
     -- chainguns don't need cooling
     TurretGenerator.scale(rand, result, WeaponType.PointDefenseChainGun, tech, 2)
     TurretGenerator.addSpecialties(rand, result, WeaponType.PointDefenseChainGun)
-
 
     result:addDescription("Increased Damage to Fighters + Torpedoes"%_T, "")
 
@@ -1002,9 +960,8 @@ function TurretGenerator.generatePointDefenseLaserTurret(rand, dps, tech, materi
     crew:add(requiredCrew, CrewMan(CrewProfessionType.Gunner))
     result.crew = crew
 
-    local dmgMod=  2
+    local dmgMod = 2
     local numWeapons = 1
-
     local weapon = WeaponGenerator.generatePointDefenseLaser(rand, dps, tech, material, rarity)
     weapon.fireDelay = weapon.fireDelay * numWeapons
     weapon.damage = weapon.damage * dmgMod
@@ -1013,9 +970,8 @@ function TurretGenerator.generatePointDefenseLaserTurret(rand, dps, tech, materi
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
 
     local energyMultiplayer = 200 *rarity.value --
-    local capacity= 100
+    local capacity = 100
     TurretGenerator.createBatteryDrainDynamic(result, energyMultiplayer, capacity, 0.5)
-
     TurretGenerator.scale(rand, result, WeaponType.PointDefenseLaser, tech, 2)
     TurretGenerator.addSpecialties(rand, result, WeaponType.PointDefenseLaser)
 
@@ -1036,18 +992,16 @@ function TurretGenerator.generateLBX(rand, dps, tech, material, rarity)
     result.crew = crew
 
     -- generate weapons
-    local dmgMod=  500
+    local dmgMod = 500
     local weapons = {1}
     local numWeapons = weapons[rand:getInt(1, #weapons)]
-
     local weapon = WeaponGenerator.generateLBX(rand, dps, tech, material, rarity)
     weapon.fireDelay = weapon.fireDelay * numWeapons
-    weapon.damage= weapon.damage * dmgMod
+    weapon.damage = weapon.damage * dmgMod
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
 
-    local capacity= 20
+    local capacity = 20
     TurretGenerator.createCoolDownDynamic(result, capacity, 0.002)
-
     TurretGenerator.scale(rand, result, WeaponType.LBX, tech, 0.6)
     TurretGenerator.addSpecialties(rand, result, WeaponType.LBX)
 
@@ -1066,16 +1020,14 @@ function TurretGenerator.generateHCG(rand, dps, tech, material, rarity)
     result.crew = crew
 
     -- generate weapons
-    local dmgMod=  0.8
+    local dmgMod = 0.8
     local weapons = {2, 2, 4, 4}
     local numWeapons = weapons[rand:getInt(1, #weapons)]
-
     local weapon = WeaponGenerator.generateHCG(rand, dps, tech, material, rarity)
     weapon.fireDelay = weapon.fireDelay * numWeapons
-    weapon.damage= weapon.damage * dmgMod
+    weapon.damage = weapon.damage * dmgMod
     -- attach weapons to turret
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
-
     TurretGenerator.scale(rand, result, WeaponType.HCG, tech, 4)
     TurretGenerator.addSpecialties(rand, result, WeaponType.HCG)
 
@@ -1097,13 +1049,11 @@ end
 function TurretGenerator.createBatteryDrainDynamic(turret, energyfactor, capacity, uptime)
     turret:updateStaticStats()
 
-
-
     turret.coolingType = CoolingType.BatteryCharge
     -- how many shots till empty
     turret.maxHeat = (1/turret.firingsPerSecond) * capacity * energyfactor
     --
-    local heatPerShot= (1/turret.firingsPerSecond) * energyfactor
+    local heatPerShot = (1/turret.firingsPerSecond) * energyfactor
     turret.heatPerShot = heatPerShot
     turret.coolingRate = energyfactor * uptime
     turret:addDescription("Drains ".. round((turret.heatPerShot/1000),2) .." GWs per Shot. (".. round((energyfactor/1000),2) .."per second)","")
@@ -1114,13 +1064,12 @@ function TurretGenerator.createCoolDownDynamic(turret, capacity, uptime)
 
     turret.coolingType = CoolingType.Standard
     -- how many shots till empty
-    turret.maxHeat = (1/turret.firingsPerSecond) * capacity   -- 0.02
+    turret.maxHeat = (1/turret.firingsPerSecond) * capacity -- 0.02
     --
-    local heatPerShot= (1/turret.firingsPerSecond)  -- 0.001
-    turret.heatPerShot = heatPerShot  -- 0.001
-    turret.coolingRate =  uptime --
+    local heatPerShot = (1/turret.firingsPerSecond) -- 0.001
+    turret.heatPerShot = heatPerShot -- 0.001
+    turret.coolingRate = uptime
 end
-
 
 generatorFunction[WeaponType.Blaster] =         TurretGenerator.generateBlaster
 generatorFunction[WeaponType.Railgun] =         TurretGenerator.generateRailgun
