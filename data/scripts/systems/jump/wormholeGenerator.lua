@@ -15,14 +15,10 @@ function getBonuses(seed, rarity, permanent)
     local efactor = 0
     local cdfactor = 0
 
+    reach = math.max(1, rarity.value + 1)
 
-   
-    reach = math.max(1, rarity.value + 1) 
- 
-  
-  
     if permanent then
-        reach = reach * 2.5 + ((math.random())*(rarity.value+1) ^ 2 ) / 2 
+        reach = reach * 2.5 + ((math.random())*(rarity.value+1) ^ 2 ) / 2
         cdfactor = 0
 
         cdfactor = 20 -- base value, in percent
@@ -50,12 +46,10 @@ function onInstalled(seed, rarity, permanent)
 end
 
 function onUninstalled(seed, rarity, permanent)
-
 end
 
 function getName(seed, rarity)
     local reach, cooldown, energy = getBonuses(seed, rarity)
-
     return "Einstein-Rosen-Bridge Generator MK ${mark}"%_t % {mark = toRomanLiterals(rarity.value + 2)}
 end
 
@@ -76,21 +70,18 @@ function getPrice(seed, rarity)
 end
 
 function getTooltipLines(seed, rarity, permanent)
-
     local texts = {}
     local bonuses = {}
     local reach, cdfactor, efactor = getBonuses(seed, rarity, permanent)
     local baseReach, _, baseefactor = getBonuses(seed, rarity, false)
     local permReach, permcdfactor, permefactor = getBonuses(seed, rarity, true)
 
- 
     table.insert(texts, {ltext = "Jump Range"%_t, rtext = string.format("%+i", reach), icon = "data/textures/icons/star-cycle.png", boosted = permanent})
     table.insert(bonuses, {ltext = "Jump Range"%_t, rtext = string.format("%+i", round(permReach-baseReach)), icon = "data/textures/icons/star-cycle.png", boosted = permanent})
 
     table.insert(texts, {ltext = "Hyperspace Cooldown"%_t, rtext = string.format("%+i%%", round(cdfactor * 100)), icon = "data/textures/icons/hourglass.png", boosted = permanent})
     table.insert(bonuses, {ltext = "Hyperspace Cooldown"%_t, rtext = string.format("%+i%%", round((-cdfactor + permcdfactor) * 100)), icon = "data/textures/icons/hourglass.png", boosted = permanent})
-   
-    
+
     table.insert(texts, {ltext = "Recharge Energy"%_t, rtext = string.format("%+i%%", round(efactor * 100)), icon = "data/textures/icons/electric.png"})
     table.insert(bonuses, {ltext = "Recharge Energy"%_t, rtext = string.format("%+i%%", round((permefactor-efactor) * 100)), icon = "data/textures/icons/hourglass.png", boosted = permanent})
 
@@ -98,7 +89,6 @@ function getTooltipLines(seed, rarity, permanent)
 
     return texts, bonuses
 end
-
 
 function getDescriptionLines(seed, rarity, permanent)
     local texts = {}
@@ -112,8 +102,8 @@ function getDescriptionLines(seed, rarity, permanent)
 
     return texts
 end
-function getComparableValues(seed, rarity)
 
+function getComparableValues(seed, rarity)
     local base = {}
     local bonus = {}
 

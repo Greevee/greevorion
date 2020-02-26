@@ -8,7 +8,6 @@ include ("randomext")
 FixedEnergyRequirement = true
 
 function getBonuses(seed, rarity, permanent)
-
     math.randomseed(seed)
     local perc = 10 -- base value, in percent
     -- add flat percentage based on rarity
@@ -32,11 +31,9 @@ function onInstalled(seed, rarity, permanent)
     addBaseMultiplier(StatsBonuses.CargoHold, perc)
     addAbsoluteBias(StatsBonuses.TransporterRange, 1000)
     addAbsoluteBias(StatsBonuses.FighterCargoPickup, fighterCargoPickup)
-
 end
 
 function onUninstalled(seed, rarity, permanent)
-
 end
 
 function getName(seed, rarity)
@@ -49,20 +46,18 @@ end
 
 function getEnergy(seed, rarity, permanent)
     local perc = getBonuses(seed, rarity)
-    return perc * 1.5 * 1000 * 1000 * 1000 
+    return perc * 1.5 * 1000 * 1000 * 1000
 end
 
 function getPrice(seed, rarity)
     local perc = getBonuses(seed, rarity)
-    local price = perc * 100 * 450 
+    local price = perc * 100 * 450
     return price * 2.5 ^ rarity.value
 end
 
 function getTooltipLines(seed, rarity, permanent)
-
     local texts = {}
     local bonuses = {}
-
     local perc, fighterCargoPickup = getBonuses(seed, rarity, permanent)
     local basePerc,fighterCargoPickup = getBonuses(seed, rarity, false)
 
@@ -72,7 +67,7 @@ function getTooltipLines(seed, rarity, permanent)
     if fighterCargoPickup > 0 then
         table.insert(bonuses, {ltext = "Fighter Cargo Pickup"%_t, icon = "data/textures/icons/fighter.png", boosted = permanent})
     end
-    
+
     return texts, bonuses
 end
 
@@ -80,17 +75,14 @@ function getDescriptionLines(seed, rarity, permanent)
     local texts = {}
     local perc, fighterCargoPickup = getBonuses(seed, rarity, permanent)
 
-
     table.insert(texts, {ltext = "Logistic Software included! (Transport blocks still needed)"%_t, lcolor = ColorRGB(1, 0.5, 0.5)})
     table.insert(texts, {ltext = "Increases cargo by a medium amount."%_t})
-
 
     if fighterCargoPickup > 0 then
         table.insert(texts, {ltext = "Allows fighters to pick up cargo"%_t, rtext = "", icon = ""})
     end
     return texts
 end
-
 
 function getComparableValues(seed, rarity)
     local perc, flat = getBonuses(seed, rarity, false)

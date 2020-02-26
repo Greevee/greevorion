@@ -1,21 +1,19 @@
 function generateTurret()
     local weaponTypes = {}
-	
-	weaponTypes[WeaponType.Blaster] = 1
-	weaponTypes[WeaponType.Railgun]= 1
-	weaponTypes[WeaponType.LRM] = 1
-	weaponTypes[WeaponType.SRM] = 1
-	weaponTypes[WeaponType.Autocannon] = 1
-	weaponTypes[WeaponType.Artillery] = 1
-	weaponTypes[WeaponType.Beamlaser] = 1
-	weaponTypes[WeaponType.Pulselaser] = 1
 
+    weaponTypes[WeaponType.Blaster] = 1
+    weaponTypes[WeaponType.Railgun]= 1
+    weaponTypes[WeaponType.LRM] = 1
+    weaponTypes[WeaponType.SRM] = 1
+    weaponTypes[WeaponType.Autocannon] = 1
+    weaponTypes[WeaponType.Artillery] = 1
+    weaponTypes[WeaponType.Beamlaser] = 1
+    weaponTypes[WeaponType.Pulselaser] = 1
 
     local rarities = {}
     rarities[RarityType.Rare] = 3
     rarities[RarityType.Exceptional] = 4
     rarities[RarityType.Exotic] = 1
-
 
     local probabilities = Balancing_GetMaterialProbability(Sector():getCoordinates())
     local materials = {}

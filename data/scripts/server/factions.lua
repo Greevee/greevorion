@@ -8,7 +8,6 @@ function initializePlayer(player)
     -- get a random angle, fixed for the server seed
     local angle = random:getFloat(2.0 * math.pi)
 
-
     -- for each player registered, add a small amount on top of this angle
     -- this way, all players are near each other
     local home = {x = 0, y = 0}
@@ -97,7 +96,5 @@ function initializePlayer(player)
     player:getInventory():addOrDrop(SystemUpgradeTemplate("data/scripts/systems/turrets/arbitrarytcs.lua", Rarity(RarityType.Common), Seed(0)))
     player:getInventory():addOrDrop(SystemUpgradeTemplate("data/scripts/systems/turrets/arbitrarytcs.lua", Rarity(RarityType.Common), Seed(0)))
 
-
     player:createShipStyle("TestStyle")
-
 end

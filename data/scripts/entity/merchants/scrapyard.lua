@@ -31,18 +31,18 @@ function Scrapyard.initUI()
     local textField = salvageTab:createTextField(Rect(0, 0, size.x, 50), "You can buy a temporary salvaging license here. This license makes it legal to damage or mine wreckages in this sector."%_t)
     textField.padding = 7
 
-    salvageTab:createButton(Rect(size.x - 210, 80, 200 + size.x - 210, 40 + 80), "Buy License"%_t, "onBuyLicenseButton1Pressed")
+    salvageTab:createButton(Rect(size.x - 210, 80,  200 + size.x - 210, 40 + 80),  "Buy License"%_t, "onBuyLicenseButton1Pressed")
     salvageTab:createButton(Rect(size.x - 210, 130, 200 + size.x - 210, 40 + 130), "Buy License"%_t, "onBuyLicenseButton2Pressed")
     salvageTab:createButton(Rect(size.x - 210, 180, 200 + size.x - 210, 40 + 180), "Buy License"%_t, "onBuyLicenseButton3Pressed")
     salvageTab:createButton(Rect(size.x - 210, 230, 200 + size.x - 210, 40 + 230), "Buy License"%_t, "onBuyLicenseButton4Pressed")
 
     local fontSize = 18
-    salvageTab:createLabel(vec2(15, 85), "60", fontSize)
+    salvageTab:createLabel(vec2(15, 85),  "60", fontSize)
     salvageTab:createLabel(vec2(15, 135), "120", fontSize)
     salvageTab:createLabel(vec2(15, 185), "240", fontSize)
     salvageTab:createLabel(vec2(15, 235), "480", fontSize)
 
-    salvageTab:createLabel(vec2(60, 85), "Minutes"%_t, fontSize)
+    salvageTab:createLabel(vec2(60, 85),  "Minutes"%_t, fontSize)
     salvageTab:createLabel(vec2(60, 135), "Minutes"%_t, fontSize)
     salvageTab:createLabel(vec2(60, 185), "Minutes"%_t, fontSize)
     salvageTab:createLabel(vec2(60, 235), "Minutes"%_t, fontSize)
@@ -143,7 +143,7 @@ function Scrapyard.getLicensePrice(orderingFaction, minutes)
     local price = minutes * 150 * (1.0 + GetFee(Faction(), orderingFaction)) * Balancing_GetSectorRichnessFactor(Sector():getCoordinates())
 
     local discountFactor = 1.0
-    if minutes > 60 then discountFactor = 0.93 end
+    if minutes > 60  then discountFactor = 0.93 end
     if minutes > 120 then discountFactor = 0.86 end
     if minutes > 240 then discountFactor = 0.80 end
 

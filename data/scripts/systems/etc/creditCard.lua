@@ -10,7 +10,7 @@ FixedEnergyRequirement = true
 function getBonuses(seed, rarity, permanent)
     math.randomseed(seed)
 
-    local credits = 1000 * ( (rarity.value+2) ^ 3) * ((math.random()+1)^5)
+    local credits = 10 * 1000 * ( (rarity.value+2) ^ 3) * ((math.random()+1)^5)
     return credits
 end
 
@@ -38,7 +38,6 @@ function getPrice(seed, rarity)
 end
 
 function getTooltipLines(seed, rarity, permanent)
-
     local texts = {}
     local bonuses = {}
 
@@ -58,10 +57,8 @@ end
 
 function getComparableValues(seed, rarity)
     local credits = getBonuses(seed, rarity, false)
-
     local base = {}
     local bonus = {}
-
 
     return base, bonus
 end

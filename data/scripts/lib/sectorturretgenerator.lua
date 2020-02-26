@@ -16,7 +16,7 @@ function SectorTurretGenerator:generate(x, y, offset_in, rarity_in, type_in, mat
     local weaponType = type_in or getValueFromDistribution(Balancing_GetWeaponProbability(sector, 0), self.random)
 
     local tech = 0
-    if weaponType == WeaponType.MiningLaser  or weaponType == WeaponType.Miner or weaponType == WeaponType.DeepCoreMiner then
+    if weaponType == WeaponType.MiningLaser or weaponType == WeaponType.Miner or weaponType == WeaponType.DeepCoreMiner then
         dps = miningDPS
         tech = miningTech
     elseif weaponType == WeaponType.ForceGun then

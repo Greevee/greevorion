@@ -81,9 +81,9 @@ end
 
 function getComparableValues(seed, rarity)
     local scanner = getBonuses(seed, rarity, false)
-
     local base = {}
     local bonus = {}
+    
     table.insert(base, {name = "Scanner Range"%_t, key = "range", value = round(scanner * 100), comp = UpgradeComparison.MoreIsBetter})
     table.insert(bonus, {name = "Scanner Range"%_t, key = "range", value = round(scanner * 100), comp = UpgradeComparison.MoreIsBetter})
 

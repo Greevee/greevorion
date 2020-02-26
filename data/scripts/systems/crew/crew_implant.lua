@@ -8,9 +8,9 @@ FixedEnergyRequirement = true
 Unique = true
 
 function getBonuses(seed, rarity, permanent)
-	math.randomseed(seed)
-    
-	local perc = 10 
+    math.randomseed(seed)
+
+    local perc = 10
     perc = perc +((rarity.value) * 2 )
 
     -- add randomized percentage, span is based on rarity
@@ -22,10 +22,10 @@ function getBonuses(seed, rarity, permanent)
     return perc
 end
 
-function onInstalled(seed, rarity, permanent) 
+function onInstalled(seed, rarity, permanent)
     local perc = getBonuses(seed, rarity, permanent)
 
-	addBaseMultiplier(StatsBonuses.Engineers, perc)
+    addBaseMultiplier(StatsBonuses.Engineers, perc)
     addBaseMultiplier(StatsBonuses.Mechanics, perc)
     addBaseMultiplier(StatsBonuses.Gunners, perc)
     addBaseMultiplier(StatsBonuses.Miners, perc)
@@ -34,7 +34,6 @@ function onInstalled(seed, rarity, permanent)
 end
 
 function onUninstalled(seed, rarity, permanent)
-
 end
 
 function getName(seed, rarity)
@@ -57,7 +56,6 @@ function getPrice(seed, rarity)
 end
 
 function getTooltipLines(seed, rarity, permanent)
-
     local texts = {}
     local bonuses = {}
     local perc = getBonuses(seed, rarity, permanent)

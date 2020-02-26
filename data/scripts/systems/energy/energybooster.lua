@@ -106,7 +106,6 @@ end
 
 function getComparableValues(seed, rarity)
     local energy, charge = getBonuses(seed, rarity, false)
-
     local base = {}
     local bonus = {}
     if energy ~= 0 then

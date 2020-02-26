@@ -5,26 +5,23 @@ function WeaponGenerator.generateBlaster(rand, dps, tech, material, rarity)
     weapon:setProjectile()
 
     local fireDelay = rand:getFloat(0.4, 0.5)
-   
 
-    
-
-    local reachMod= 1
+    local reachMod = 1
     local dmgMod = 1
-    local type=rand:getInt(1,3)
+    local type = rand:getInt(1,3)
     if type == 1 then
         weapon.name = "Electron Blaster /* Weapon Name*/"%_t
         weapon.prefix = "Electron Blaster /* Weapon Prefix*/"%_t
-        dmgMod= 0.9
-        reachMod=0.9
+        dmgMod = 0.9
+        reachMod = 0.9
     elseif type == 2 then
         weapon.name = "Ion Blaster /* Weapon Name*/"%_t
         weapon.prefix = "Ion Blaster /* Weapon Prefix*/"%_t
     else
         weapon.name = "Neutron Blaster /* Weapon Name*/"%_t
         weapon.prefix = "Neutron Blaster /* Weapon Prefix*/"%_t
-        dmgMod= 1.1
-        reachMod=1.1
+        dmgMod = 1.1
+        reachMod = 1.1
     end
     local reach = rand:getFloat(400, 600) * reachMod
     local damage = dps * fireDelay *dmgMod
@@ -36,7 +33,7 @@ function WeaponGenerator.generateBlaster(rand, dps, tech, material, rarity)
     weapon.appearanceSeed = rand:getInt()
     weapon.appearance = WeaponAppearance.PlasmaGun
 
-    weapon.icon = "data/textures/icons/plasma-gun.png" 
+    weapon.icon = "data/textures/icons/plasma-gun.png"
     weapon.sound = "plasma"
     weapon.accuracy = 0.99 - rand:getFloat(0, 0.1)
 
@@ -58,35 +55,33 @@ function WeaponGenerator.generateBlaster(rand, dps, tech, material, rarity)
 end
 
 function WeaponGenerator.generateRailgun(rand, dps, tech, material, rarity)
-
     local weapon = Weapon()
     weapon:setBeam()
     local rarityFactor = rand:getFloat(0, rarity.value / HighestRarity().value)
     local fireDelay = rand:getFloat(5.5, 6.5)
-    local reachMod= 1
+    local reachMod = 1
     local dmgMod = 1
-    local type=rand:getInt(1,3)
+    local type = rand:getInt(1,3)
     if type == 1 then
-        local name= ((material.value+1)*10)*9
+        local name = ((material.value+1)*10)*9
         weapon.name = name.."mm Railgun /* Weapon Name*/"%_t
         weapon.prefix = name.."mm Railgun /* Weapon Prefix*/"%_t
-        dmgMod= 0.9
-        reachMod=0.9
+        dmgMod = 0.9
+        reachMod = 0.9
     elseif type == 2 then
-        local name= ((material.value+1)*10)*10
+        local name = ((material.value+1)*10)*10
         weapon.name = name.."mm Railgun /* Weapon Name*/"%_t
         weapon.prefix = name.."mm Railgun /* Weapon Prefix*/"%_t
     else
-        local name=  ((material.value+1)*10)*11
+        local name = ((material.value+1)*10)*11
         weapon.name = name.."mm Railgun /* Weapon Name*/"%_t
         weapon.prefix = name.."mm Railgun /* Weapon Prefix*/"%_t
-        dmgMod= 1.1
-        reachMod=1.1
+        dmgMod = 1.1
+        reachMod = 1.1
     end
     local reach = rand:getFloat(1300, 1400)* getRangeMod(rarity, 0.5) * reachMod
     local damage = dps * fireDelay *dmgMod
 
-    
     weapon.fireDelay = fireDelay
     weapon.appearanceSeed = rand:getInt()
     weapon.reach = reach
@@ -130,7 +125,7 @@ function WeaponGenerator.generateLRM(rand, dps, tech, material, rarity)
     local weapon = Weapon()
     weapon:setProjectile()
     local fireDelay = rand:getFloat(5, 5)
-    local reach = rand:getFloat(1500, 2000)* getRangeMod(rarity, 0.5)
+    local reach = rand:getFloat(1500, 2000) * getRangeMod(rarity, 0.5)
     local damage = dps * fireDelay
     local speed = rand:getFloat(180, 200)
     local existingTime = reach / speed
@@ -215,25 +210,25 @@ function WeaponGenerator.generateAutocannon(rand, dps, tech, material, rarity)
 
     local fireDelay = rand:getFloat(0.3, 0.4)
     local velocity = rand:getFloat(500, 700)
-    local reachMod= 1
+    local reachMod = 1
     local dmgMod = 1
-    local type=rand:getInt(1,3)
+    local type = rand:getInt(1,3)
     if type == 1 then
-        local name= ((material.value+1)*10)*14
+        local name = ((material.value+1)*10)*14
         weapon.name = name.."mm Autocannon /* Weapon Name*/"%_t
         weapon.prefix = name.."mm Autocannon /* Weapon Prefix*/"%_t
-        dmgMod= 0.9
-        reachMod=0.9
+        dmgMod = 0.9
+        reachMod = 0.9
     elseif type == 2 then
-        local name= ((material.value+1)*10)*15
+        local name = ((material.value+1)*10)*15
         weapon.name = name.."mm Autocannon /* Weapon Name*/"%_t
         weapon.prefix = name.."mm Autocannon /* Weapon Prefix*/"%_t
     else
-        local name=  ((material.value+1)*10)*16
+        local name = ((material.value+1)*10)*16
         weapon.name = name.."mm Autocannon /* Weapon Name*/"%_t
         weapon.prefix = name.."mm Autocannon /* Weapon Prefix*/"%_t
-        dmgMod= 1.1
-        reachMod=1.1
+        dmgMod = 1.1
+        reachMod = 1.1
     end
 
     local damage = dps * fireDelay * dmgMod
@@ -271,29 +266,29 @@ function WeaponGenerator.generateArtillery(rand, dps, tech, material, rarity)
     local weapon = Weapon()
     weapon:setProjectile()
 
-    local fireDelay = rand:getFloat(8, 10) 
+    local fireDelay = rand:getFloat(8, 10)
     local speed = rand:getFloat(800, 900)
 
 
-    local reachMod= 1
+    local reachMod = 1
     local dmgMod = 1
-    local type=rand:getInt(1,3)
+    local type = rand:getInt(1,3)
     if type == 1 then
-        local name= ((material.value+1)*10)*45
+        local name = ((material.value+1)*10)*45
         weapon.name = name.."mm Artillery /* Weapon Name*/"%_t
         weapon.prefix = name.."mm Artillery /* Weapon Prefix*/"%_t
-        dmgMod= 0.9
-        reachMod=0.9
+        dmgMod = 0.9
+        reachMod = 0.9
     elseif type == 2 then
-        local name= ((material.value+1)*10)*50
+        local name = ((material.value+1)*10)*50
         weapon.name = name.."mm Artillery /* Weapon Name*/"%_t
         weapon.prefix = name.."mm Artillery /* Weapon Prefix*/"%_t
     else
-        local name=  ((material.value+1)*10)*55
+        local name = ((material.value+1)*10)*55
         weapon.name = name.."mm Artillery /* Weapon Name*/"%_t
         weapon.prefix = name.."mm Artillery /* Weapon Prefix*/"%_t
-        dmgMod= 1.1
-        reachMod=1.1
+        dmgMod = 1.1
+        reachMod = 1.1
     end
 
     local damage = dps * fireDelay *dmgMod
@@ -334,7 +329,7 @@ function WeaponGenerator.generatePPC(rand, dps, tech, material, rarity)
     local weapon = Weapon()
     weapon:setProjectile()
 
-    local fireDelay = rand:getFloat(6, 7) 
+    local fireDelay = rand:getFloat(6, 7)
     local reach = (rand:getFloat(900,1000)) * getRangeMod(rarity, 0.5)
 
     local damage = dps * fireDelay
@@ -351,7 +346,7 @@ function WeaponGenerator.generatePPC(rand, dps, tech, material, rarity)
     weapon.sound = "cannon"
     weapon.accuracy = 0.99 - rand:getFloat(0, 0.01)
 
-    weapon.shieldDamageMultiplicator = 1.5 
+    weapon.shieldDamageMultiplicator = 1.5
 
     weapon.damage = damage
     weapon.damageType = DamageType.Energy
@@ -380,8 +375,8 @@ end
 function WeaponGenerator.generateMiner(rand, dps, tech, material, rarity)
     local weapon = Weapon()
     weapon:setBeam()
-    local raw=true
-    local efficencyMod=1
+    local raw = true
+    local efficencyMod = 1
 
 
     weapon.fireDelay = 0.2
@@ -390,14 +385,14 @@ function WeaponGenerator.generateMiner(rand, dps, tech, material, rarity)
     weapon.recoil = 0
     weapon.continuousBeam = true
     weapon.appearance = WeaponAppearance.MiningLaser
-   
+
         weapon.name = "Raw-Miner /* Weapon Name*/"%_t
         weapon.prefix = "Raw-Miner /* Weapon Prefix*/"%_t
-        weapon.stoneRawEfficiency = math.abs(0.63 + rand:getFloat(0, 0.06) + rarity.value * 0.06) 
-   
+        weapon.stoneRawEfficiency = math.abs(0.63 + rand:getFloat(0, 0.06) + rarity.value * 0.06)
+
     weapon.icon = "data/textures/icons/mining-laser.png"
     weapon.sound = "mining"
-    weapon.damage = dps * weapon.fireDelay 
+    weapon.damage = dps * weapon.fireDelay
     weapon.damageType = DamageType.Energy
     weapon.smaterial = material
     weapon.stoneDamageMultiplicator = WeaponGenerator.getStoneDamageMultiplicator()
@@ -419,7 +414,7 @@ end
 function WeaponGenerator.generateDeepCoreMiner(rand, dps, tech, material, rarity)
     local weapon = Weapon()
     weapon:setBeam()
-    local raw=true
+    local raw = true
 
     weapon.continuousBeam = true
     weapon.fireDelay = 0.6
@@ -431,18 +426,18 @@ function WeaponGenerator.generateDeepCoreMiner(rand, dps, tech, material, rarity
 
     weapon.name = "Deep Core Mining Drill /* Weapon Name*/"%_t
     weapon.prefix = "Deep Core Mining Drill /* Weapon Prefix*/"%_t
-    weapon.stoneRawEfficiency = math.abs(0.73 + rand:getFloat(0, 0.06) + rarity.value * 0.06) 
+    weapon.stoneRawEfficiency = math.abs(0.73 + rand:getFloat(0, 0.06) + rarity.value * 0.06)
 
     weapon.icon = "data/textures/icons/mining-laser.png"
     weapon.sound = "mining"
-    local dmgMod=1
+    local dmgMod = 1
     weapon.damage = dps * weapon.fireDelay * dmgMod
     weapon.damageType = DamageType.Energy
     weapon.smaterial = material
     weapon.stoneDamageMultiplicator = WeaponGenerator.getStoneDamageMultiplicator()
     weapon.shieldDamageMultiplicator = 0
 
-    weapon.stoneRawEfficiency = math.abs(0.63 + rand:getFloat(0, 0.06) + rarity.value * 0.06) 
+    weapon.stoneRawEfficiency = math.abs(0.63 + rand:getFloat(0, 0.06) + rarity.value * 0.06)
 
     weapon.blength = weapon.reach
     weapon.bshape = BeamShape.Swirly
@@ -461,22 +456,22 @@ function WeaponGenerator.generateBeamlaser(rand, dps, tech, material, rarity)
     local weapon = Weapon()
     weapon:setBeam()
 
-    local reachMod= 1
+    local reachMod = 1
     local dmgMod = 1
     local type=rand:getInt(1,3)
     if type == 1 then
         weapon.name = "Light Beamlaser /* Weapon Name*/"%_t
         weapon.prefix = "Light Beamlaser /* Weapon Prefix*/"%_t
-        dmgMod= 0.9
-        reachMod=0.9
+        dmgMod = 0.9
+        reachMod = 0.9
     elseif type == 2 then
         weapon.name = "Medium Beamlaser /* Weapon Name*/"%_t
         weapon.prefix = "Medium Beamlaser /* Weapon Prefix*/"%_t
     else
         weapon.name = "Heavy Beamlaser /* Weapon Name*/"%_t
         weapon.prefix = "Heavy Beamlaser /* Weapon Prefix*/"%_t
-        dmgMod= 1.1
-        reachMod=1.1
+        dmgMod = 1.1
+        reachMod = 1.1
     end
 
     local fireDelay = 0.1
@@ -512,26 +507,26 @@ function WeaponGenerator.generatePulselaser(rand, dps, tech, material, rarity)
     local weapon = Weapon()
     weapon:setBeam()
 
-    local reachMod= 1
+    local reachMod = 1
     local dmgMod = 1
     local type=rand:getInt(1,3)
     if type == 1 then
         weapon.name = "Gatling Pulselaser /* Weapon Name*/"%_t
         weapon.prefix = "Gatling Pulselaser /* Weapon Prefix*/"%_t
-        dmgMod= 0.9
-        reachMod=0.9
+        dmgMod = 0.9
+        reachMod = 0.9
     elseif type == 2 then
         weapon.name = "Mega Pulselaser /* Weapon Name*/"%_t
         weapon.prefix = "Mega Pulselaser /* Weapon Prefix*/"%_t
     else
         weapon.name = "Giga Pulselaser /* Weapon Name*/"%_t
         weapon.prefix = "Giga Pulselaser /* Weapon Prefix*/"%_t
-        dmgMod= 1.1
-        reachMod=1.1
+        dmgMod = 1.1
+        reachMod = 1.1
     end
 
     local fireDelay = 0.3 -- always the same with beams, does not really matter
-    local reach = rand:getFloat(300, 350)* getRangeMod(rarity, 0.5) *reachMod
+    local reach = rand:getFloat(300, 350) * getRangeMod(rarity, 0.5) * reachMod
     local damage = dps * fireDelay *dmgMod
 
     weapon.fireDelay = fireDelay
@@ -565,7 +560,7 @@ function WeaponGenerator.generateSalvager(rand, dps, tech, material, rarity)
 
     weapon.fireDelay = 0.2
     weapon.appearanceSeed = rand:getInt()
-    weapon.reach = rand:getFloat(650,750)* getRangeMod(rarity, 0.5)
+    weapon.reach = rand:getFloat(650,750) * getRangeMod(rarity, 0.5)
     weapon.recoil = 0
     weapon.continuousBeam = true
     weapon.appearance = WeaponAppearance.Laser
@@ -620,8 +615,8 @@ function WeaponGenerator.generateRedeemer(rand, dps, tech, material, rarity)
     weapon.bshape = BeamShape.Swirly
     weapon.bouterColor = ColorRGB(0.1, 0.1, 0.1)
     weapon.binnerColor = ColorARGB(material.color.a * 0.8, material.color.r * 0.8, material.color.g * 0.8, material.color.b * 0.8)
-    weapon.bwidth = 0.5 
-    weapon.bauraWidth = 1 
+    weapon.bwidth = 0.5
+    weapon.bauraWidth = 1
     weapon.banimationSpeed = 4 *1.5
 
 
@@ -709,7 +704,7 @@ function WeaponGenerator.generateAntiFighterGun(rand, dps, tech, material, rarit
 
     dps = dps * 0.1
 
-    local fireDelay = rand:getFloat(0.2, 0.3) 
+    local fireDelay = rand:getFloat(0.2, 0.3)
     local reach = rand:getFloat(150, 250) * getRangeMod(rarity, 0.5)
     local damage = dps * fireDelay
     local speed = rand:getFloat(300, 400)
@@ -889,13 +884,13 @@ generatorFunction[WeaponType.Beamlaser]       = WeaponGenerator.generateBeamlase
 generatorFunction[WeaponType.Pulselaser]      = WeaponGenerator.generatePulselaser
 generatorFunction[WeaponType.TorpedoLauncher] = WeaponGenerator.generateTorpedoLauncher
 
-generatorFunction[WeaponType.Miner] = WeaponGenerator.generateMiner
-generatorFunction[WeaponType.DeepCoreMiner] = WeaponGenerator.generateDeepCoreMiner
-generatorFunction[WeaponType.Salvager] = WeaponGenerator.generateSalvager
-generatorFunction[WeaponType.Redeemer] = WeaponGenerator.generateRedeemer
+generatorFunction[WeaponType.Miner]           = WeaponGenerator.generateMiner
+generatorFunction[WeaponType.DeepCoreMiner]   = WeaponGenerator.generateDeepCoreMiner
+generatorFunction[WeaponType.Salvager]        = WeaponGenerator.generateSalvager
+generatorFunction[WeaponType.Redeemer]        = WeaponGenerator.generateRedeemer
 
 --experimental
-generatorFunction[WeaponType.Judgement] = WeaponGenerator.Judgement
+generatorFunction[WeaponType.Judgement]       = WeaponGenerator.Judgement
 
 
 function WeaponGenerator.generateJudgement(rand, dps, tech, material, rarity)

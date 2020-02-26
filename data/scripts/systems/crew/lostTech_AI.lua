@@ -71,13 +71,11 @@ function getPrice(seed, rarity)
 end
 
 function getTooltipLines(seed, rarity, permanent)
-
     local texts = {}
     local bonuses = {}
     local scanner, crew, range,fighterCargoPickup  = getBonuses(seed, rarity, permanent)
     local baseScanner, basecrew = getBonuses(seed, rarity, false)
 
-  
     table.insert(texts, {ltext = "Scanner Range"%_t, rtext = string.format("%+i%%", round(scanner * 100)), icon = "data/textures/icons/signal-range.png", boosted = permanent})
     table.insert(texts, {ltext = "Pilots less Required", rtext = string.format("%+i", crew), icon = CrewProfession(CrewProfessionType.Pilot).icon, boosted = permanent})
     table.insert(texts, {ltext = "Gunners less Required", rtext = string.format("%+i", crew), icon = CrewProfession(CrewProfessionType.Gunner).icon, boosted = permanent})

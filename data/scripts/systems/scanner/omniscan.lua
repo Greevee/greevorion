@@ -16,7 +16,6 @@ local entityId
 -- this variable gets reset on the client every time the player changes sectors because the script is recreated
 local chatMessageDisplayed = false
 
-
 -- optimization so that energy requirement doesn't have to be read every frame
 FixedEnergyRequirement = true
 
@@ -200,7 +199,7 @@ function getPrice(seed, rarity)
 
     local price = #detections * 750 + range * 1.5;
 
-    return 6 * price * 2.5 ^ rarity.value 
+    return 6 * price * 2.5 ^ rarity.value
 end
 
 function getTooltipLines(seed, rarity, permanent)
@@ -222,7 +221,7 @@ function getTooltipLines(seed, rarity, permanent)
     table.insert(texts, {ltext = "Detection Range"%_t, rtext = "Sector"%_t, icon = "data/textures/icons/rss.png"})
 
 
-   
+
     materialLevel = math.max(0, math.min(materialLevel, NumMaterials() - 1))
     local material = Material(materialLevel)
 
@@ -230,7 +229,7 @@ function getTooltipLines(seed, rarity, permanent)
     table.insert(texts, {ltext = "Scan Range"%_t, rtext = string.format("%g", round(mrange / 100, 2)), icon = "data/textures/icons/rss.png", boosted = permanent})
     table.insert(texts, {ltext = "Asteroids marked"%_t, rtext = string.format("%i", amount), icon = "data/textures/icons/rock.png", boosted = permanent})
 
-    
+
     table.insert(bonuses, {ltext = "Material Level"%_t, rtext = "+1", icon = "data/textures/icons/metal-bar.png"})
     table.insert(bonuses, {ltext = "Scan Range"%_t, rtext = string.format("+%g", round(basemRange * 0.5 / 100, 2)), icon = "data/textures/icons/rss.png"})
     table.insert(bonuses, {ltext = "Asteroids marked"%_t, rtext = string.format("+%i", round(amount * 0.5)), icon = "data/textures/icons/rock.png"})
@@ -257,17 +256,15 @@ function getDescriptionLines(seed, rarity, permanent)
     table.insert(texts, {ltext = "Displays amount of resources in objects"%_t})
     table.insert(texts, {ltext = "Highlights nearby mineable objects"%_t})
     table.insert(texts, {ltext = "Ultimate combined scan systems"%_t, lcolor = ColorRGB(0.3, 0.3, 0.3)})
-    
+
 
     return texts
 end
 
 function getComparableValues(seed, rarity)
     local _, range = getBonuses(seed, rarity, false)
-
     local base = {}
     local bonus = {}
-
 
     return base, bonus
 end

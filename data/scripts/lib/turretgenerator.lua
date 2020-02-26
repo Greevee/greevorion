@@ -3,7 +3,7 @@ function TurretGenerator.addSpecialties(rand, turret, type)
     turret:updateStaticStats()
 
     local specialties = {}
-   
+
     -- direct specilistation need to be inserted here
 
     for _, s in pairs(possibleSpecialties[type]) do
@@ -32,13 +32,12 @@ function TurretGenerator.addSpecialties(rand, turret, type)
         table.insert(specialties, Specialty.AutomaticFireDPSReduced)
     end
 
-    if type == WeaponType.LRM or type == WeaponType.SRM  then
+    if type == WeaponType.LRM or type == WeaponType.SRM then
         table.insert(specialties, Specialty.AutomaticFire)
     end
 
     table.sort(specialties)
 
-  
     for a, s in pairs(specialties) do
         print(a)
     end
@@ -68,26 +67,24 @@ function TurretGenerator.addSpecialties(rand, turret, type)
                     weapon.hullRepair = weapon.hullRepair * factor
                 end
             end
-        
+
         elseif s == Specialty.ExtendedRange then
             local maxIncrease = 0.15
             local increase = 0.05 + rarityFactor * maxIncrease
 
             for _, weapon in pairs(weapons) do
                 weapon.reach = weapon.reach * (1 + increase)
-                
             end
 
             local addition = math.floor(increase * 100)
             turret:addDescription("Extended Range: %s%% Range"%_T, string.format("%+i", addition))
-           
+
         elseif s == Specialty.Dampener then
             local maxIncrease = 0.25
             local increase = 0.15 + rarityFactor * maxIncrease
 
             for _, weapon in pairs(weapons) do
                 weapon.recoil = weapon.recoil * (1 - increase)
-                
             end
 
             local addition = math.floor(increase * 100)
@@ -96,12 +93,12 @@ function TurretGenerator.addSpecialties(rand, turret, type)
             local maxIncrease = 0.15
             local increase = 0.05 + rarityFactor * maxIncrease
 
-            turret.heatPerShot =  turret.heatPerShot  * (1 + increase)
+            turret.heatPerShot =  turret.heatPerShot * (1 + increase)
             for _, weapon in pairs(weapons) do
                 weapon.damage = weapon.damage * (1 + increase)
             end
             local addition = math.floor(increase * 100)
-            turret:addDescription("Hypercharge: %s%% Energydrain and Damage"%_T, string.format("%+i", addition))
+            turret:addDescription("Hypercharge: %s%% Energy drain and Damage"%_T, string.format("%+i", addition))
 
         elseif s == Specialty.Efficient then
             local maxIncrease = 0.15
@@ -110,7 +107,7 @@ function TurretGenerator.addSpecialties(rand, turret, type)
             turret.heatPerShot =  turret.heatPerShot  * (1 - increase)
 
             local addition = math.floor(increase * 100)
-            turret:addDescription("Efficient: -%s%% Energydrain"%_T, string.format("%-i", addition))
+            turret:addDescription("Efficient: -%s%% Energy drain"%_T, string.format("%-i", addition))
         elseif s == Specialty.ArmorShred then
             local maxIncrease = 0.15
             local increase = 0.05 + rarityFactor * maxIncrease
@@ -122,7 +119,7 @@ function TurretGenerator.addSpecialties(rand, turret, type)
             end
 
             percentage = math.floor(percentage * 100 - 100 + 0.00001) -- TODO rounding
-            turret:addDescription("ArmorShred: %s%% Hulldamage"%_T, string.format("%+i", percentage))
+            turret:addDescription("Armor shred: %s%% Hull damage"%_T, string.format("%+i", percentage))
         elseif s == Specialty.ShieldShred then
             local maxIncrease = 0.15
             local increase = 0.05 + rarityFactor * maxIncrease
@@ -134,8 +131,8 @@ function TurretGenerator.addSpecialties(rand, turret, type)
             end
 
             percentage = math.floor(percentage * 100 - 100)
-            turret:addDescription("Shieldshred: %s%% Shielddamage"%_T, string.format("%+i", percentage))
-        elseif s == Specialty.HighExplosiv then
+            turret:addDescription("Shield shred: %s%% Shield damage"%_T, string.format("%+i", percentage))
+        elseif s == Specialty.HighExplosive then
             local maxIncrease = 0.15
             local increase = 0.05 + rarityFactor * maxIncrease
 
@@ -145,7 +142,7 @@ function TurretGenerator.addSpecialties(rand, turret, type)
             end
 
             local addition = math.floor(increase * 100)
-            turret:addDescription("HighExplosiv: %s%% Explosionradius"%_T, string.format("%+i", addition))
+            turret:addDescription("High explosive: %s%% Explosion radius"%_T, string.format("%+i", addition))
         elseif s == Specialty.ShieldPenetration then
             local maxChance = 0.1
             local chance = 0.1 + rarityFactor * maxChance
@@ -155,7 +152,7 @@ function TurretGenerator.addSpecialties(rand, turret, type)
             end
 
             local percentage = math.floor(chance * 100 + 0.0000001) -- TODO rounding
-            turret:addDescription("Shieldpenetration: %s%% Penetrationchance"%_T, string.format("%i", percentage))
+            turret:addDescription("Shield penetration: %s%% Penetration chance"%_T, string.format("%i", percentage))
         elseif s == Specialty.Coax then
             turret.automatic = false
             turret.coaxial = true
@@ -169,6 +166,7 @@ function TurretGenerator.addSpecialties(rand, turret, type)
         turret:addWeapon(weapon)
     end
 end
+
 function TurretGenerator.getScale(type, tech)
     for _, scale in pairs(scales[type]) do
         if tech >= scale.from and tech <= scale.to then return scale end
@@ -176,6 +174,7 @@ function TurretGenerator.getScale(type, tech)
 
     return {from = 0, to = 0, size = 1, usedSlots = 1}
 end
+
 function TurretGenerator.scale(rand, turret, type, tech, turnSpeedFactor)
     local scaleTech = tech
     if rand:test(0.5) then
@@ -197,46 +196,44 @@ function TurretGenerator.scale(rand, turret, type, tech, turnSpeedFactor)
 
     for _, weapon in pairs(weapons) do
         weapon.localPosition = weapon.localPosition * scale.size
-        weapon.shotsFired= nrWeapons
-       
-            -- scale damage, etc. linearly with amount of used slots
-            if weapon.damage ~= 0 then
-                weapon.damage = weapon.damage * scale.usedSlots * (1+ (tech/52)) * dmgMod
-            end
+        weapon.shotsFired = nrWeapons
 
-            if weapon.hullRepair ~= 0 then
-                weapon.hullRepair = weapon.hullRepair * scale.usedSlots * (1+ (tech/52)) *dmgMod
-            end
+        -- scale damage, etc. linearly with amount of used slots
+        if weapon.damage ~= 0 then
+            weapon.damage = weapon.damage * scale.usedSlots * (1+ (tech/52)) * dmgMod
+        end
 
-            if weapon.shieldRepair ~= 0 then
-                weapon.shieldRepair = weapon.shieldRepair * scale.usedSlots * (1+ (tech/52))*dmgMod
-            end
+        if weapon.hullRepair ~= 0 then
+            weapon.hullRepair = weapon.hullRepair * scale.usedSlots * (1+ (tech/52)) *dmgMod
+        end
 
-            if weapon.selfForce ~= 0 then
-                weapon.selfForce = weapon.selfForce * scale.usedSlots* (1+ (tech/52))
-            end
+        if weapon.shieldRepair ~= 0 then
+            weapon.shieldRepair = weapon.shieldRepair * scale.usedSlots * (1+ (tech/52))*dmgMod
+        end
 
-            if weapon.otherForce ~= 0 then
-                weapon.otherForce = weapon.otherForce * scale.usedSlots * (1+ (tech/52)) 
-            end
+        if weapon.selfForce ~= 0 then
+            weapon.selfForce = weapon.selfForce * scale.usedSlots* (1+ (tech/52))
+        end
 
-            
-            local increase = 0
-            if type == WeaponType.Miner or type == WeaponType.DeepCoreMiner then
-                -- mining and salvaging laser reach is scaled more
-                increase = (scale.usedSlots - 1) * 0.5
-            else
-                -- scale reach a little
-                increase = (scale.usedSlots - 1) * 0.15
-            end
+        if weapon.otherForce ~= 0 then
+            weapon.otherForce = weapon.otherForce * scale.usedSlots * (1+ (tech/52))
+        end
 
-            weapon.reach = weapon.reach * (1 + increase)
 
-            local shotSizeFactor = scale.size * 2
-            if weapon.isProjectile then weapon.psize = weapon.psize * shotSizeFactor end
-            if weapon.isBeam then weapon.bwidth = weapon.bwidth * shotSizeFactor end
-        
+        local increase = 0
+        if type == WeaponType.Miner or type == WeaponType.DeepCoreMiner then
+            -- mining and salvaging laser reach is scaled more
+            increase = (scale.usedSlots - 1) * 0.5
+        else
+            -- scale reach a little
+            increase = (scale.usedSlots - 1) * 0.15
+        end
 
+        weapon.reach = weapon.reach * (1 + increase)
+
+        local shotSizeFactor = scale.size * 2
+        if weapon.isProjectile then weapon.psize = weapon.psize * shotSizeFactor end
+        if weapon.isBeam then weapon.bwidth = weapon.bwidth * shotSizeFactor end
     end
 
     turret:clearWeapons()
@@ -246,144 +243,162 @@ function TurretGenerator.scale(rand, turret, type, tech, turnSpeedFactor)
 end
 
 Specialty = {
-    AutomaticFire = 0,
+    AutomaticFire =           0,
     AutomaticFireDPSReduced = 1,
-    ExtendedRange = 2,
-    Dampener = 3,
-    Hypercharged =4,
-    Efficient =5,
-    ArmorShred=6,
-    HighExplosiv=7,
-    ShieldShred=8,
-    ShieldPenetration=9,
-    Coax=10,
+    ExtendedRange =           2,
+    Dampener =                3,
+    Hypercharged =            4,
+    Efficient =               5,
+    ArmorShred =              6,
+    HighExplosive =           7,
+    ShieldShred =             8,
+    ShieldPenetration =       9,
+    Coax =                    10,
 }
 
-
 scales[WeaponType.Railgun] = {
-    {from = 0, to = 28, size = 1.0, usedSlots = 2},
+    {from = 0,  to = 28, size = 1.0, usedSlots = 2},
     {from = 29, to = 35, size = 1.5, usedSlots = 3},
     {from = 36, to = 42, size = 2.0, usedSlots = 4},
     {from = 43, to = 49, size = 3.0, usedSlots = 6},
-    {from = 50, to = 52, size = 4, usedSlots = 8},
+    {from = 50, to = 52, size = 4,   usedSlots = 8},
 }
+
 scales[WeaponType.Blaster] = {
-    {from = 0, to = 30, size = 0.5, usedSlots = 1},
+    {from = 0,  to = 30, size = 0.5, usedSlots = 1},
     {from = 31, to = 39, size = 1.0, usedSlots = 2},
     {from = 40, to = 48, size = 1.5, usedSlots = 3},
     {from = 49, to = 52, size = 2.0, usedSlots = 4},
 }
+
 scales[WeaponType.HCG] = {
-    {from = 0, to = 30, size = 0.5, usedSlots = 1},
+    {from = 0,  to = 30, size = 0.5, usedSlots = 1},
     {from = 31, to = 39, size = 1.0, usedSlots = 2},
     {from = 40, to = 48, size = 1.5, usedSlots = 3},
     {from = 49, to = 52, size = 2.0, usedSlots = 4},
 }
+
 scales[WeaponType.Judgement] = {
-    {from = 0, to = 48, size = 1.0, usedSlots = 2},
+    {from = 0,  to = 48, size = 1.0, usedSlots = 2},
     {from = 29, to = 35, size = 1.5, usedSlots = 3},
     {from = 36, to = 42, size = 2.0, usedSlots = 4},
     {from = 43, to = 49, size = 3.0, usedSlots = 5},
-    {from = 50, to = 52, size = 10, usedSlots = 20},
+    {from = 50, to = 52, size = 10,  usedSlots = 20},
 }
+
 scales[WeaponType.Autocannon] = {
-    {from = 0, to = 12, size = 0.5, usedSlots = 1},
+    {from = 0,  to = 12, size = 0.5, usedSlots = 1},
     {from = 13, to = 30, size = 1.0, usedSlots = 2},
     {from = 31, to = 49, size = 1.5, usedSlots = 3},
     {from = 50, to = 52, size = 3.5, usedSlots = 6},
 }
+
 scales[WeaponType.Artillery] = {
-    {from = 0, to = 12, size = 1.5, usedSlots = 2},
+    {from = 0,  to = 12, size = 1.5, usedSlots = 2},
     {from = 13, to = 30, size = 2.5, usedSlots = 4},
-    {from = 31, to = 49, size = 3, usedSlots = 6},
-    {from = 50, to = 52, size = 5, usedSlots = 8},
+    {from = 31, to = 49, size = 3,   usedSlots = 6},
+    {from = 50, to = 52, size = 5,   usedSlots = 8},
 }
+
 scales[WeaponType.PPC] = {
-    {from = 0, to = 12, size = 1.5, usedSlots = 2},
+    {from = 0,  to = 12, size = 1.5, usedSlots = 2},
     {from = 13, to = 30, size = 2.5, usedSlots = 4},
-    {from = 31, to = 49, size = 3, usedSlots = 6},
-    {from = 50, to = 52, size = 5, usedSlots = 8},
+    {from = 31, to = 49, size = 3,   usedSlots = 6},
+    {from = 50, to = 52, size = 5,   usedSlots = 8},
 }
+
 scales[WeaponType.LRM] = {
-    {from = 0, to = 12, size = 0.5, usedSlots = 1},
+    {from = 0,  to = 12, size = 0.5, usedSlots = 1},
     {from = 13, to = 30, size = 1.0, usedSlots = 2},
     {from = 31, to = 49, size = 1.5, usedSlots = 3},
     {from = 50, to = 52, size = 3.5, usedSlots = 6},
 }
+
 scales[WeaponType.SRM] = {
-    {from = 0, to = 12, size = 0.5, usedSlots = 1},
+    {from = 0,  to = 12, size = 0.5, usedSlots = 1},
     {from = 13, to = 30, size = 1.0, usedSlots = 2},
     {from = 31, to = 49, size = 1.5, usedSlots = 3},
     {from = 50, to = 52, size = 2.5, usedSlots = 4},
 }
+
 scales[WeaponType.Beamlaser] = {
-    {from = 0, to = 28, size = 1.0, usedSlots = 1},
+    {from = 0,  to = 28, size = 1.0, usedSlots = 1},
     {from = 29, to = 35, size = 1.5, usedSlots = 2},
     {from = 36, to = 48, size = 2.0, usedSlots = 4},
     {from = 49, to = 52, size = 3.0, usedSlots = 6},
 }
+
 scales[WeaponType.Pulselaser] = {
-    {from = 0, to = 30, size = 0.5, usedSlots = 1},
+    {from = 0,  to = 30, size = 0.5, usedSlots = 1},
     {from = 31, to = 39, size = 1.0, usedSlots = 2},
     {from = 40, to = 48, size = 1.5, usedSlots = 3},
     {from = 49, to = 52, size = 2.0, usedSlots = 4},
 }
+
 scales[WeaponType.Miner] = {
-    {from = 0, to = 12, size = 0.5, usedSlots = 1},
+    {from = 0,  to = 12, size = 0.5, usedSlots = 1},
     {from = 13, to = 30, size = 1.0, usedSlots = 2},
     {from = 31, to = 49, size = 1.5, usedSlots = 3},
     {from = 50, to = 52, size = 3.5, usedSlots = 6},
 }
+
 scales[WeaponType.DeepCoreMiner] = {
-    {from = 0, to = 12, size = 2, usedSlots = 4},
-    {from = 13, to = 30, size = 3, usedSlots = 6},
+    {from = 0,  to = 12, size = 2,   usedSlots = 4},
+    {from = 13, to = 30, size = 3,   usedSlots = 6},
     {from = 31, to = 49, size = 4.5, usedSlots = 12},
-    {from = 50, to = 52, size = 6, usedSlots = 16},
+    {from = 50, to = 52, size = 6,   usedSlots = 16},
 }
+
 scales[WeaponType.Salvager] = {
-    {from = 0, to = 12, size = 0.5, usedSlots = 1},
+    {from = 0,  to = 12, size = 0.5, usedSlots = 1},
     {from = 13, to = 30, size = 1.0, usedSlots = 2},
     {from = 31, to = 49, size = 1.5, usedSlots = 3},
     {from = 50, to = 52, size = 3.5, usedSlots = 6},
 }
+
 scales[WeaponType.Redeemer] = {
-    {from = 0, to = 12, size = 2, usedSlots = 4},
-    {from = 13, to = 30, size = 3, usedSlots = 6},
+    {from = 0,  to = 12, size = 2,   usedSlots = 4},
+    {from = 13, to = 30, size = 3,   usedSlots = 6},
     {from = 31, to = 49, size = 4.5, usedSlots = 12},
-    {from = 50, to = 52, size = 6, usedSlots = 16},
+    {from = 50, to = 52, size = 6,   usedSlots = 16},
 }
+
 scales[WeaponType.TorpedoLauncher] = {
-    {from = 0, to = 12, size = 1.5, usedSlots = 2},
+    {from = 0,  to = 12, size = 1.5, usedSlots = 2},
     {from = 13, to = 30, size = 2.5, usedSlots = 4},
-    {from = 31, to = 49, size = 3, usedSlots = 6},
-    {from = 50, to = 52, size = 5, usedSlots = 8},
+    {from = 31, to = 49, size = 3,   usedSlots = 6},
+    {from = 50, to = 52, size = 5,   usedSlots = 8},
 }
+
 scales[WeaponType.LBX] = {
-    {from = 0, to = 12, size = 1.5, usedSlots = 2},
+    {from = 0,  to = 12, size = 1.5, usedSlots = 2},
     {from = 13, to = 30, size = 2.5, usedSlots = 4},
-    {from = 31, to = 49, size = 3, usedSlots = 6},
-    {from = 50, to = 52, size = 5, usedSlots = 8},
+    {from = 31, to = 49, size = 3,   usedSlots = 6},
+    {from = 50, to = 52, size = 5,   usedSlots = 8},
 }
 
 possibleSpecialties[WeaponType.Judgement] = {
 }
+
 possibleSpecialties[WeaponType.SRM] = {
     Specialty.ArmorShred,
-    Specialty.HighExplosiv,
+    Specialty.HighExplosive,
     Specialty.ShieldPenetration,
-
 }
+
 possibleSpecialties[WeaponType.LRM] = {
     Specialty.ArmorShred,
-    Specialty.HighExplosiv,
+    Specialty.HighExplosive,
     Specialty.ShieldPenetration,
 }
+
 possibleSpecialties[WeaponType.Blaster] = {
     Specialty.ExtendedRange,
     Specialty.Hypercharged,
     Specialty.Efficient,
     Specialty.ShieldShred,
 }
+
 possibleSpecialties[WeaponType.Railgun] = {
     Specialty.ExtendedRange,
     Specialty.Dampener,
@@ -391,35 +406,41 @@ possibleSpecialties[WeaponType.Railgun] = {
     Specialty.Efficient,
     Specialty.Coax
 }
+
 possibleSpecialties[WeaponType.Autocannon] = {
     Specialty.ExtendedRange,
     Specialty.ArmorShred,
 }
+
 possibleSpecialties[WeaponType.Artillery] = {
     Specialty.ExtendedRange,
     Specialty.Dampener,
     Specialty.ArmorShred,
-    Specialty.HighExplosiv,
+    Specialty.HighExplosive,
     Specialty.Coax
 }
+
 possibleSpecialties[WeaponType.PPC] = {
     Specialty.ExtendedRange,
     Specialty.Dampener,
     Specialty.Hypercharged,
     Specialty.Efficient,
-    Specialty.HighExplosiv,
+    Specialty.HighExplosive,
     Specialty.ShieldShred,
     Specialty.Coax
 }
+
 possibleSpecialties[WeaponType.Miner] = {
     Specialty.ExtendedRange,
     Specialty.Efficient,
 }
+
 possibleSpecialties[WeaponType.DeepCoreMiner] = {
     Specialty.ExtendedRange,
     Specialty.Efficient,
     Specialty.Hypercharged,
 }
+
 possibleSpecialties[WeaponType.Salvager] = {
     Specialty.ExtendedRange,
     Specialty.Efficient,
@@ -429,35 +450,37 @@ possibleSpecialties[WeaponType.Redeemer] = {
     Specialty.Efficient,
     Specialty.Hypercharged,
 }
+
 possibleSpecialties[WeaponType.Beamlaser] = {
     Specialty.ExtendedRange,
     Specialty.Efficient,
     Specialty.Hypercharged,
     Specialty.ShieldShred,
 }
+
 possibleSpecialties[WeaponType.Pulselaser] = {
     Specialty.ExtendedRange,
     Specialty.Efficient,
     Specialty.Hypercharged,
     Specialty.ShieldShred,
 }
+
 possibleSpecialties[WeaponType.TorpedoLauncher] = {
     Specialty.ArmorShred,
-    Specialty.HighExplosiv,
+    Specialty.HighExplosive,
 }
+
 possibleSpecialties[WeaponType.LBX] = {
     Specialty.ArmorShred,
     Specialty.Dampener,
     Specialty.ExtendedRange,
     Specialty.Coax
 }
+
 possibleSpecialties[WeaponType.HCG] = {
     Specialty.ArmorShred,
     Specialty.ExtendedRange,
 }
-
-
-
 
 
 
@@ -469,7 +492,7 @@ function TurretGenerator.generateBlaster(rand, dps, tech, material, rarity)
     crew:add(requiredCrew, CrewMan(CrewProfessionType.Gunner))
     result.crew = crew
 
-  
+
     -- generate weapons
     local dmgMod=  1.4
     local weapons = {2, 2, 2, 4}
@@ -481,7 +504,7 @@ function TurretGenerator.generateBlaster(rand, dps, tech, material, rarity)
     -- attach weapons to turret
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
 
-    local energyMultiplayer = 100 *dps -- 
+    local energyMultiplayer = 100 *dps --
     local capacity= 10
     TurretGenerator.createBatteryDrainConstant(result, energyMultiplayer, capacity)
 
@@ -541,7 +564,7 @@ function TurretGenerator.generateJudgement(rand, dps, tech, material, rarity)
     -- attach weapons to turret
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
 
-    local shootingTime = 10 
+    local shootingTime = 10
     local coolingTime = 360
     TurretGenerator.createStandardCooling(result, coolingTime, shootingTime)
 
@@ -600,7 +623,7 @@ function TurretGenerator.generateTorpedoLauncher(rand, dps, tech, material, rari
 
     local capacity= 3
     TurretGenerator.createCoolDownDynamic(result, capacity, 0.4)
-    
+
     TurretGenerator.scale(rand, result, WeaponType.TorpedoLauncher, tech, 0.3)
     TurretGenerator.addSpecialties(rand, result, WeaponType.TorpedoLauncher)
 
@@ -619,7 +642,7 @@ function TurretGenerator.generateSRM(rand, dps, tech, material, rarity)
     result.crew = crew
 
     -- generate weapons
-    local dmgMod=  0.8
+    local dmgMod = 0.8
     local weapons = {2, 2, 4, 4}
     local numWeapons = weapons[rand:getInt(1, #weapons)]
 
@@ -743,7 +766,7 @@ function TurretGenerator.generateMiner(rand, dps, tech, material, rarity)
     local numWeapons = 1
 
     local weapon = WeaponGenerator.generateMiner(rand, dps, tech, material, rarity)
-    weapon.damage = weapon.damage / numWeapons 
+    weapon.damage = weapon.damage / numWeapons
     weapon.damage = weapon.damage * dmgMod
 
     -- attach weapons to turret
@@ -753,7 +776,7 @@ function TurretGenerator.generateMiner(rand, dps, tech, material, rarity)
     result:addDescription("%s%% Damage to Stone"%_T, string.format("%+i", percentage))
 
 
-    local energyMultiplayer = 25 *dps -- 
+    local energyMultiplayer = 25 *dps --
     local capacity= 10
     TurretGenerator.createBatteryDrainConstant(result, energyMultiplayer, capacity)
 
@@ -767,7 +790,7 @@ end
 
 function TurretGenerator.generateDeepCoreMiner(rand, dps, tech, material, rarity)
     local result = TurretTemplate()
-    
+
 
     -- generate turret
     local requiredCrew = TurretGenerator.dpsToRequiredCrew(dps)
@@ -824,7 +847,7 @@ function TurretGenerator.generateBeamlaser(rand, dps, tech, material, rarity)
 
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
 
-    local energyMultiplayer = 200 *dps -- 
+    local energyMultiplayer = 200 *dps --
     local capacity= 10
     TurretGenerator.createBatteryDrainDynamic(result, energyMultiplayer, capacity, 0.66)
 
@@ -856,7 +879,7 @@ function TurretGenerator.generatePulselaser(rand, dps, tech, material, rarity)
 
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
 
-    local energyMultiplayer = 200 *dps -- 
+    local energyMultiplayer = 200 *dps --
     local capacity= 10
     TurretGenerator.createBatteryDrainDynamic(result, energyMultiplayer, capacity, 0.5)
 
@@ -891,8 +914,8 @@ function TurretGenerator.generateSalvager(rand, dps, tech, material, rarity)
 
     -- normal mining lasers don't need cooling
 
-    
-    local energyMultiplayer = 10 *dps -- 
+
+    local energyMultiplayer = 10 *dps --
     local capacity= 50
     TurretGenerator.createBatteryDrainConstant(result, energyMultiplayer, capacity)
 
@@ -926,8 +949,8 @@ function TurretGenerator.generateRedeemer(rand, dps, tech, material, rarity)
     -- attach weapons to turret
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
 
-    
-    local energyMultiplayer = 400 *dps -- 
+
+    local energyMultiplayer = 400 *dps --
     local capacity= 20
     TurretGenerator.createBatteryDrainConstant(result, energyMultiplayer, capacity)
     -- normal mining lasers don't need cooling
@@ -989,7 +1012,7 @@ function TurretGenerator.generatePointDefenseLaserTurret(rand, dps, tech, materi
     -- attach weapons to turret
     TurretGenerator.attachWeapons(rand, result, weapon, numWeapons)
 
-    local energyMultiplayer = 200 *rarity.value -- 
+    local energyMultiplayer = 200 *rarity.value --
     local capacity= 100
     TurretGenerator.createBatteryDrainDynamic(result, energyMultiplayer, capacity, 0.5)
 
@@ -1073,13 +1096,13 @@ end
 
 function TurretGenerator.createBatteryDrainDynamic(turret, energyfactor, capacity, uptime)
     turret:updateStaticStats()
-    
-    
+
+
 
     turret.coolingType = CoolingType.BatteryCharge
     -- how many shots till empty
     turret.maxHeat = (1/turret.firingsPerSecond) * capacity * energyfactor
-    -- 
+    --
     local heatPerShot= (1/turret.firingsPerSecond) * energyfactor
     turret.heatPerShot = heatPerShot
     turret.coolingRate = energyfactor * uptime
@@ -1092,29 +1115,27 @@ function TurretGenerator.createCoolDownDynamic(turret, capacity, uptime)
     turret.coolingType = CoolingType.Standard
     -- how many shots till empty
     turret.maxHeat = (1/turret.firingsPerSecond) * capacity   -- 0.02
-    -- 
+    --
     local heatPerShot= (1/turret.firingsPerSecond)  -- 0.001
     turret.heatPerShot = heatPerShot  -- 0.001
     turret.coolingRate =  uptime --
 end
 
 
-generatorFunction[WeaponType.Blaster] = TurretGenerator.generateBlaster
-generatorFunction[WeaponType.Railgun] = TurretGenerator.generateRailgun
-generatorFunction[WeaponType.LRM] = TurretGenerator.generateLRM
-generatorFunction[WeaponType.SRM] = TurretGenerator.generateSRM
-generatorFunction[WeaponType.Autocannon] = TurretGenerator.generateAutocannon
-generatorFunction[WeaponType.Artillery] = TurretGenerator.generateArtillery
-generatorFunction[WeaponType.Beamlaser] = TurretGenerator.generateBeamlaser
-generatorFunction[WeaponType.Pulselaser] = TurretGenerator.generatePulselaser
-generatorFunction[WeaponType.PPC] = TurretGenerator.generatePPC
+generatorFunction[WeaponType.Blaster] =         TurretGenerator.generateBlaster
+generatorFunction[WeaponType.Railgun] =         TurretGenerator.generateRailgun
+generatorFunction[WeaponType.LRM] =             TurretGenerator.generateLRM
+generatorFunction[WeaponType.SRM] =             TurretGenerator.generateSRM
+generatorFunction[WeaponType.Autocannon] =      TurretGenerator.generateAutocannon
+generatorFunction[WeaponType.Artillery] =       TurretGenerator.generateArtillery
+generatorFunction[WeaponType.Beamlaser] =       TurretGenerator.generateBeamlaser
+generatorFunction[WeaponType.Pulselaser] =      TurretGenerator.generatePulselaser
+generatorFunction[WeaponType.PPC] =             TurretGenerator.generatePPC
 generatorFunction[WeaponType.TorpedoLauncher] = TurretGenerator.generateTorpedoLauncher
-generatorFunction[WeaponType.LBX] = TurretGenerator.generateLBX
-generatorFunction[WeaponType.HCG] = TurretGenerator.generateHCG
+generatorFunction[WeaponType.LBX] =             TurretGenerator.generateLBX
+generatorFunction[WeaponType.HCG] =             TurretGenerator.generateHCG
 
-generatorFunction[WeaponType.Miner] = TurretGenerator.generateMiner
-generatorFunction[WeaponType.DeepCoreMiner] = TurretGenerator.generateDeepCoreMiner
-
-generatorFunction[WeaponType.Salvager] = TurretGenerator.generateSalvager
-generatorFunction[WeaponType.Redeemer] = TurretGenerator.generateRedeemer
-
+generatorFunction[WeaponType.Miner] =           TurretGenerator.generateMiner
+generatorFunction[WeaponType.DeepCoreMiner] =   TurretGenerator.generateDeepCoreMiner
+generatorFunction[WeaponType.Salvager] =        TurretGenerator.generateSalvager
+generatorFunction[WeaponType.Redeemer] =        TurretGenerator.generateRedeemer

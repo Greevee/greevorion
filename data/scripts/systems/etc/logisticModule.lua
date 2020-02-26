@@ -23,7 +23,7 @@ function getBonuses(seed, rarity, permanent)
     local lootrange = (rarity.value + 2 + getFloat(0.0, 0.75)) * 2 * (1.3 ^ rarity.value) * 3  * 4-- one unit is 10 meters
 
     if permanent then
-        lootrange = lootrange 
+        lootrange = lootrange
     end
 
     lootrange = round(lootrange)
@@ -68,9 +68,7 @@ function getTooltipLines(seed, rarity, permanent)
     local texts = {}
     local bonuses = {}
 
-    
     table.insert(texts, {ltext = "Docking Distance"%_t, rtext = "+${distance} km"%_t % {distance = round((range / 100),2)}, icon = "data/textures/icons/solar-system.png", boosted = permanent})
-    
 
     if fighterCargoPickup > 0 then
         table.insert(texts, {ltext = "Fighter Cargo Pickup"%_t, icon = "data/textures/icons/fighter.png", boosted = permanent})
@@ -100,7 +98,6 @@ end
 
 function getComparableValues(seed, rarity)
     local range, fighterCargoPickup = getBonuses(seed, rarity, permanent)
-
     local base = {}
     local bonus = {}
     return base, bonus
