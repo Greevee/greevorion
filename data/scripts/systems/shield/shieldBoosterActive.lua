@@ -24,27 +24,27 @@ function update(timePassed)
 
         --eversy 5 seconds, load shoul be trivial
     maxRechargeAmountPercent, sa, energySavePercent =getBonuses(getSeed(), getRarity(), getPermanent()) -- in % of max shields
-    --todo: should  use the save and restore to save the variables? 
+    --todo: should  use the save and restore to save the variables?
     local maxShield = Entity().shieldMaxDurability -- loaded, can change in combat when blocks get destroyed
     local curShield = Entity().shieldDurability
 
-    local maxRechage=(maxShield/100)*maxRechargeAmountPercent
-    local shieldDmg=maxShield-curShield
+    local maxRechage = (maxShield/100)*maxRechargeAmountPercent
+    local shieldDmg = maxShield-curShield
 
     if shieldDmg >= maxRechage then
-        energyNeeded= energyPerDamage * maxRechage * energySavePercent
+        energyNeeded = energyPerDamage * maxRechage * energySavePercent
         Entity():healShield(maxRechage)
     else
-        energyNeeded= energyPerDamage * shieldDmg * energySavePercent
+        energyNeeded = energyPerDamage * shieldDmg * energySavePercent
         Entity():healShield(shieldDmg)
-    end    
+    end
 
 end
 
 function getBonuses(seed, rarity, permanent)
     math.randomseed(seed)
 
-    local energySavePercent =1
+    local energySavePercent = 1
     local bonusmaxRechargeAmountPercent = ((rarity.value +1)/24) + ((math.random() * (rarity.value +1) )/24)
     local shieldAmplification = -50 + (math.random() *(rarity.value) * 5)
 
@@ -57,7 +57,7 @@ function getBonuses(seed, rarity, permanent)
 end
 
 function onInstalled(seed, rarity, permanent)
- 
+
     local maxRechargeAmountPercent,shieldAmplification  = getBonuses(seed, rarity, permanent)
     addMultiplier(StatsBonuses.ShieldDurability, 1+shieldAmplification)
 end
@@ -78,7 +78,7 @@ function getEnergy(seed, rarity, permanent)
 end
 
 function getPrice(seed, rarity)
-    local rechargeBase,shieldBase  = getBonuses(seed, rarity, false)
+    local rechargeBase,shieldBase = getBonuses(seed, rarity, false)
     local price = rechargeBase * 100000 * 250
 end
 
@@ -87,16 +87,15 @@ function getTooltipLines(seed, rarity, permanent)
     local texts = {}
     local bonuses = {}
 
-    local recharge,shieldAmplification  = getBonuses(seed, rarity, permanent)
-    local rechargeBase,shieldBase  = getBonuses(seed, rarity, false)
-    local rechargePerm,shieldPerm,energy  = getBonuses(seed, rarity, true)
+    local recharge,shieldAmplification = getBonuses(seed, rarity, permanent)
+    local rechargeBase,shieldBase = getBonuses(seed, rarity, false)
+    local rechargePerm,shieldPerm,energy = getBonuses(seed, rarity, true)
 
     table.insert(texts, {ltext = "Recharges percent of the shield."%_t, rtext = string.format("%02.2f%%",  round(recharge,2)), icon = "data/textures/icons/health-normal.png", boosted = permanent})
     table.insert(bonuses, {ltext = "Recharges percent of the shield."%_t, rtext = string.format("%02.2f%%", round(rechargePerm-rechargeBase,2)), icon = "data/textures/icons/health-normal.png"})
 
     table.insert(texts, {ltext = "Shield durability"%_t, rtext = string.format("%i%%", round( round(1-shieldAmplification) )), icon = "data/textures/icons/shield.png"})
-
-    table.insert(bonuses, {ltext =  "Energy saved."%_t, rtext = string.format("%02.2f%%",round(100-(energy*100),2) ), icon = "data/textures/icons/power-unit.png"})
+    table.insert(bonuses, {ltext = "Energy saved."%_t, rtext = string.format("%02.2f%%",round(100-(energy*100),2) ), icon = "data/textures/icons/power-unit.png"})
 
     return texts, bonuses
 end

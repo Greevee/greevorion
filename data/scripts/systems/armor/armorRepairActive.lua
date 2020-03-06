@@ -1,4 +1,4 @@
-     --Active Armor Repaur by Greeve
+-- Active Armor Repaur by Greeve
 
 package.path = package.path .. ";data/scripts/systems/?.lua"
 package.path = package.path .. ";data/scripts/lib/?.lua"
@@ -6,19 +6,18 @@ include ("basesystem")
 include ("utility")
 include ("randomext")
 
-local energyNeeded= 0
+local energyNeeded = 0
 
-energyPerDamage = 10000000  -- todo balance  
+energyPerDamage = 10000000  -- todo balance
 FixedEnergyRequirement = false  -- must be dynamic
-updateCycle= 1
+updateCycle = 1
 
 function getUpdateInterval()
     return updateCycle
 end
 
 function update(timePassed)
-
-        --eversy 1 seconds, load shoul be trivial
+    -- eversy 1 seconds, load shoul be trivial
     local maxRechargeAmountPercent, energySavePercent =getBonuses(getSeed(), getRarity(), getPermanent()) -- in % of max shields
 
     local maxHull = Entity().maxDurability -- loaded, can change in combat when blocks get destroyed
@@ -33,8 +32,7 @@ function update(timePassed)
     else
         energyNeeded= energyPerDamage * hullDmg * energySavePercent
         Entity().durability= durability+ hullDmg
-    end    
-
+    end
 end
 
 function getBonuses(seed, rarity, permanent)
@@ -43,7 +41,7 @@ function getBonuses(seed, rarity, permanent)
     local energySavePercent =1
 
     local baseamountRepair= ((rarity.value +1) /12)*(1/4) * math.random()
-    local bonusmaxRechargeAmountPercent =  ((math.random() * (rarity.value +1 )  )/40)   
+    local bonusmaxRechargeAmountPercent =  ((math.random() * (rarity.value +1 )  )/40)
 
     if permanent then
         bonusmaxRechargeAmountPercent = bonusmaxRechargeAmountPercent * 2    --- max  2 * 1%
@@ -55,7 +53,7 @@ function getBonuses(seed, rarity, permanent)
 end
 
 function onInstalled(seed, rarity, permanent)
-    local nvm,mechanicFactor   = getBonuses(seed, rarity, permanent) 
+    local nvm,mechanicFactor   = getBonuses(seed, rarity, permanent)
 end
 
 function onUninstalled(seed, rarity, permanent)
@@ -79,17 +77,14 @@ function getPrice(seed, rarity)
 end
 
 function getTooltipLines(seed, rarity, permanent)
-
     local texts = {}
     local bonuses = {}
-
     local maxRechargeAmountPercent,energySavePercent  = getBonuses(seed, rarity, permanent)
     local maxRechargeAmountPercentnormal,energySavePercentnormal  = getBonuses(seed, rarity, false)
     local maxRechargeAmountPercentpermanent,energySavePercentboost  = getBonuses(seed, rarity, true)
 
     table.insert(texts, {ltext = "Repairs percent of the armor."%_t, rtext = string.format("%02.2f%%",  round(maxRechargeAmountPercentnormal,2)), icon = "data/textures/icons/repair.png", boosted = permanent})
     table.insert(bonuses, {ltext = "Repairs percent of the shield."%_t, rtext = string.format("%02.2f%%", round(maxRechargeAmountPercentpermanent-maxRechargeAmountPercentnormal,2)), icon = "data/textures/icons/repair.png"})
-
     table.insert(bonuses, {ltext =  "Energy saved."%_t, rtext = string.format("%02.2f%%",round(100-(energySavePercentboost*100),2) ), icon = "data/textures/icons/power-unit.png"})
 
     return texts, bonuses

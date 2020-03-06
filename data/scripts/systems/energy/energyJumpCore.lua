@@ -38,15 +38,15 @@ function getBonuses(seed, rarity, permanent)
         cdfactor = 5 -- base value, in percent
         -- add flat percentage based on rarity
         cdfactor = cdfactor + (rarity.value + 1) * 3 -- add 0% (worst rarity) to +18% (best rarity)
-    
+
         -- add randomized percentage, span is based on rarity
         cdfactor = cdfactor + math.random() * ((rarity.value + 1) * 4) -- add random value between 0% (worst rarity) and +18% (best rarity)
         cdfactor = -cdfactor / 100
-    
+
         efactor = 5 -- base value, in percent
         -- add flat percentage based on rarity
         efactor = efactor + (rarity.value + 1) * 3 -- add 0% (worst rarity) to +18% (best rarity)
-    
+
         -- add randomized percentage, span is based on rarity
         efactor = efactor + math.random() * ((rarity.value + 1) * 5) -- add random value between 0% (worst rarity) and +24% (best rarity)
         efactor = -efactor / 100
@@ -97,7 +97,6 @@ function getPrice(seed, rarity)
 end
 
 function getTooltipLines(seed, rarity, permanent)
-
     local texts = {}
     local bonuses = {}
     local energy, charge, cdfactor, efactor = getBonuses(seed, rarity, permanent)
@@ -127,7 +126,7 @@ function getTooltipLines(seed, rarity, permanent)
     return texts, bonuses
 end
 
-     
+
 function getDescriptionLines(seed, rarity, permanent)
     local texts = {}
     table.insert(texts, {ltext = "Direct Reactor-Jumpcore bypass."%_t})
@@ -136,9 +135,9 @@ end
 
 function getComparableValues(seed, rarity)
     local energy, charge = getBonuses(seed, rarity, false)
-
     local base = {}
     local bonus = {}
+
     if energy ~= 0 then
         table.insert(base, {name = "Generated Energy"%_t, key = "generated_energy", value = round(energy * 100), comp = UpgradeComparison.MoreIsBetter})
         table.insert(bonus, {name = "Generated Energy"%_t, key = "generated_energy", value = round(energy * 0.5 * 100), comp = UpgradeComparison.MoreIsBetter})

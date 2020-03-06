@@ -19,18 +19,18 @@ function getUpdateInterval()
 end
 
 function update(timePassed)
-    local shieldAmplification , energySavePercent  = getBonuses(getSeed(), getRarity(), getPermanent())
+    local shieldAmplification , energySavePercent = getBonuses(getSeed(), getRarity(), getPermanent())
     local shield = Entity().shieldDurability -- loaded, can change in combat when blocks get destroyed
-    energyNeeded= shield * energyCostMultiplier *energySavePercent
+    energyNeeded = shield * energyCostMultiplier * energySavePercent
 end
 
 function getBonuses(seed, rarity, permanent)
     math.randomseed(seed)
 
-    local shieldAmplification = -30 + ((math.random() *(rarity.value+1) * 3)) --  -30 
-    shieldAmplification= 1 + (shieldAmplification /100)
-    local energySavePercent =1 
-    
+    local shieldAmplification = -30 + ((math.random() *(rarity.value+1) * 3)) --  -30
+    shieldAmplification = 1 + (shieldAmplification /100)
+    local energySavePercent = 1
+
     if permanent then
         energySavePercent = 1 - (((rarity.value +1) /6)*((math.random()*0.25) +0.25 )) -- 1 - 0.5
     end
@@ -43,7 +43,7 @@ function onInstalled(seed, rarity, permanent)
     if permanent then
         addAbsoluteBias(StatsBonuses.ShieldImpenetrable, 1)
         addMultiplier(StatsBonuses.ShieldDurability, shieldAmplification)
-    end   
+    end
 end
 
 function onUninstalled(seed, rarity, permanent)
@@ -58,7 +58,7 @@ function getIcon(seed, rarity)
 end
 
 function getEnergy(seed, rarity, permanent)
-    return energyNeeded 
+    return energyNeeded
 end
 
 function getPrice(seed, rarity)
@@ -73,11 +73,11 @@ function getTooltipLines(seed, rarity, permanent)
     local texts = {}
     local bonuses = {}
 
-    local shieldAmplification , energySavePercent  = getBonuses(seed, rarity, permanent)
-    local shieldAmplificationBase, energySavePercentbase  = getBonuses(seed, rarity, false)
-    local shieldAmplificationBoosted, energySavePercentBoosted  = getBonuses(seed, rarity, true)
+    local shieldAmplification , energySavePercent = getBonuses(seed, rarity, permanent)
+    local shieldAmplificationBase, energySavePercentbase = getBonuses(seed, rarity, false)
+    local shieldAmplificationBoosted, energySavePercentBoosted = getBonuses(seed, rarity, true)
 
-  
+
     table.insert(bonuses, {ltext = "Shield durability"%_t, rtext = string.format("%f%%", round( 1-shieldAmplification,2)), icon = "data/textures/icons/shield.png"})
 
     table.insert(bonuses, {ltext = "Impenetrable Shields"%_t, rtext = "Yes"%_t, icon = "data/textures/icons/shield.png", boosted = permanent})

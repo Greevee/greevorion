@@ -1,28 +1,23 @@
-
-
-
 --weapon probabilities
-
-
 -- new weapons
-weaponProbabilities[WeaponType.Blaster] = {p = 1.0}
-weaponProbabilities[WeaponType.Schienenkanone] = {d = 0.7, p = 0.5}
-weaponProbabilities[WeaponType.LRM] = {p = 1.0}
-weaponProbabilities[WeaponType.SRM] = {p = 1.0}
-weaponProbabilities[WeaponType.Autocannon] = {p = 1.0}
-weaponProbabilities[WeaponType.Artillery] = {d = 0.8, p = 0.5}
-weaponProbabilities[WeaponType.Beamlaser] = {d = 0.6, p = 0.6}
-weaponProbabilities[WeaponType.Pulselaser] = {p = 1.0}
-weaponProbabilities[WeaponType.PPC] = {d = 0.5, p = 0.4}
+weaponProbabilities[WeaponType.Blaster] =         {p = 1.0}
+weaponProbabilities[WeaponType.Railgun] =         {d = 0.7, p = 0.5}
+weaponProbabilities[WeaponType.LRM] =             {p = 1.0}
+weaponProbabilities[WeaponType.SRM] =             {p = 1.0}
+weaponProbabilities[WeaponType.Autocannon] =      {p = 1.0}
+weaponProbabilities[WeaponType.Artillery] =       {d = 0.8, p = 0.5}
+weaponProbabilities[WeaponType.Beamlaser] =       {d = 0.6, p = 0.6}
+weaponProbabilities[WeaponType.Pulselaser] =      {p = 1.0}
+weaponProbabilities[WeaponType.PPC] =             {d = 0.5, p = 0.4}
 weaponProbabilities[WeaponType.TorpedoLauncher] = {d = 0.5, p = 0.5}
-weaponProbabilities[WeaponType.LBX] = {d = 0.6, p = 0.4}
-weaponProbabilities[WeaponType.HCG] = {d = 0.7, p = 0.4}
+weaponProbabilities[WeaponType.LBX] =             {d = 0.6, p = 0.4}
+weaponProbabilities[WeaponType.HCG] =             {d = 0.7, p = 0.4}
 
 -- mining
-weaponProbabilities[WeaponType.Miner] = {p = 0.8}
+weaponProbabilities[WeaponType.Miner] =         {p = 0.8}
 weaponProbabilities[WeaponType.DeepCoreMiner] = {d = 0.8,p = 0.2}
-weaponProbabilities[WeaponType.Salvager] = {p = 0.8}
-weaponProbabilities[WeaponType.Redeemer] = {d = 0.5,p = 0.2}
+weaponProbabilities[WeaponType.Salvager] =      {p = 0.8}
+weaponProbabilities[WeaponType.Redeemer] =      {d = 0.5,p = 0.2}
 
 
 weaponProbabilities[WeaponType.PointDefenseChainGun] = {p = 1}
@@ -86,7 +81,7 @@ function Balancing_GetSectorShipVolume(x, y)
 
     shipVolume = shipVolume + b -- add a small basic factor so there are no ships with volume 0 in the outer regions
 
-    return shipVolume 
+    return shipVolume
 end
 
 function Balancing_GetEnemySectorTurrets(x, y)
@@ -125,7 +120,7 @@ function Balancing_GetSectorWeaponDPS(x, y)
     -- finally apply the size factor here, too, since this one should scale with the ship sizes from Balancing_GetSectorShipVolume
     local maximumHP = Balancing_GetSectorShipHP(0, 0)
     local maximumTurrets = Balancing_GetSectorTurretsUnrounded(0, 0)
-    local maximumDps = maximumHP / maximumTurrets / (15.0 )-- assuming it should this many seconds to destroy an average ship with a fully armed ship in the center
+    local maximumDps = maximumHP / maximumTurrets / (15.0 ) -- assuming it should this many seconds to destroy an average ship with a fully armed ship in the center
 -- 100 / 25 -> 4
 -- 100 / 50 -> 2
     -- print (maximumDps)

@@ -20,26 +20,24 @@ function getBonuses(seed, rarity, permanent)
     perc = perc / 100
     if permanent then perc = perc * 1.5 end
 
-    local slow  = 50 
+    local slow = 50
     slow= slow - ( math.random() * (rarity.value * 5))
 
-    if permanent then 
+    if permanent then
         slow = slow * 0.5
     end
 
-    slow=slow/100
+    slow = slow / 100
     return perc, slow
 end
 
 function onInstalled(seed, rarity, permanent)
     local perc, slow = getBonuses(seed, rarity, permanent)
-
     addBaseMultiplier(StatsBonuses.CargoHold, perc)
     addBaseMultiplier(StatsBonuses.Velocity, -slow)
 end
 
 function onUninstalled(seed, rarity, permanent)
-
 end
 
 function getName(seed, rarity)
@@ -52,29 +50,27 @@ end
 
 function getEnergy(seed, rarity, permanent)
     local perc, slow = getBonuses(seed, rarity, permanent)
-    return perc * 3 * 1000 * 1000 * 1000 
+    return perc * 3 * 1000 * 1000 * 1000
 end
 
 function getPrice(seed, rarity)
     local perc, flat = getBonuses(seed, rarity)
-    local price = perc * 100 * 900 
+    local price = perc * 100 * 900
     return price * 2.5 ^ rarity.value
 end
 
 function getTooltipLines(seed, rarity, permanent)
-
     local texts = {}
     local bonuses = {}
     local perc, slow = getBonuses(seed, rarity, permanent)
     local basePerc, slowBase = getBonuses(seed, rarity, false)
     local bonusPerc, slowBonus = getBonuses(seed, rarity, true)
 
-   
-        table.insert(texts, {ltext = "Cargo Hold"%_t, rtext = string.format("%+i%%", round(perc * 100)), icon = "data/textures/icons/crate.png", boosted = permanent})
-        table.insert(bonuses, {ltext = "Cargo Hold"%_t, rtext = string.format("%+i%%", round(basePerc * 0.5 * 100)), icon = "data/textures/icons/crate.png", boosted = permanent})
-   
-        table.insert(texts, {ltext = "Maximum velocity"%_t, rtext = string.format("%+i%%", round(-1*slow*100)), icon = "data/textures/icons/crate.png", boosted = permanent})
-        table.insert(bonuses, {ltext = "Maximum velocity"%_t, rtext = string.format("%+i%%", round(slowBase*0.5*100)), icon = "data/textures/icons/crate.png", boosted = permanent})
+    table.insert(texts, {ltext = "Cargo Hold"%_t, rtext = string.format("%+i%%", round(perc * 100)), icon = "data/textures/icons/crate.png", boosted = permanent})
+    table.insert(bonuses, {ltext = "Cargo Hold"%_t, rtext = string.format("%+i%%", round(basePerc * 0.5 * 100)), icon = "data/textures/icons/crate.png", boosted = permanent})
+
+    table.insert(texts, {ltext = "Maximum velocity"%_t, rtext = string.format("%+i%%", round(-1*slow*100)), icon = "data/textures/icons/crate.png", boosted = permanent})
+    table.insert(bonuses, {ltext = "Maximum velocity"%_t, rtext = string.format("%+i%%", round(slowBase*0.5*100)), icon = "data/textures/icons/crate.png", boosted = permanent})
 
     return texts, bonuses
 end
@@ -85,13 +81,10 @@ function getDescriptionLines(seed, rarity, permanent)
     return texts
 end
 
-
 function getComparableValues(seed, rarity)
     local perc, flat = getBonuses(seed, rarity, false)
-
     local base = {}
     local bonus = {}
-
 
     return base, bonus
 end

@@ -10,15 +10,13 @@ FixedEnergyRequirement = true
 function getBonuses(seed, rarity, permanent)
     math.randomseed(seed)
 
-    math.randomseed(seed)
-
-    local shieldAmplification = 25 + (math.random() *(rarity.value) * 5)
+    local shieldAmplification = 25 + (math.random() * (rarity.value) * 5)
 
     if permanent then
         shieldAmplification = shieldAmplification * 1.5
     end
 
-    return  (shieldAmplification /100)
+    return (shieldAmplification /100)
 end
 
 function onInstalled(seed, rarity, permanent)

@@ -51,7 +51,7 @@ end
 function The4.createRailgunTurret()
     -- create custom railgun turrets
 
-    local turret = SectorTurretGenerator(Seed(151)):generate(150, 0, 0, Rarity(RarityType.Common), WeaponType.Schienenkanone)
+    local turret = SectorTurretGenerator(Seed(151)):generate(150, 0, 0, Rarity(RarityType.Common), WeaponType.Railgun)
     local weapons = {turret:getWeapons()}
     turret:clearWeapons()
     for _, weapon in pairs(weapons) do

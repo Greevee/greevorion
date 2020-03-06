@@ -5,7 +5,7 @@ TurretIngredients[WeaponType.Autocannon] =
     {name = "Ammunition M",         amount = 5,     investable = 10,    minimum = 1,    weaponStat = "damage", investFactor = 0.25},
     {name = "Explosive Charge",     amount = 2,     investable = 4,     minimum = 1,    weaponStat = "damage", investFactor = 0.75},
     {name = "Steel",                amount = 5,     investable = 10,    minimum = 3,},
-    {name = "Aluminum",            amount = 7,     investable = 5,     minimum = 3,},
+    {name = "Aluminum",             amount = 7,     investable = 5,     minimum = 3,},
     {name = "Targeting System",     amount = 0,     investable = 2,     minimum = 0, turretStat = "automatic", investFactor = 1, changeType = StatChanges.Flat},
 }
 
@@ -77,7 +77,7 @@ TurretIngredients[WeaponType.SRM] =
     {name = "Wire",                 amount = 5,    investable = 10, minimum = 3,},
     {name = "Targeting System",     amount = 0,    investable = 2,  minimum = 0, turretStat = "automatic", investFactor = 1, changeType = StatChanges.Flat},
 }
-TurretIngredients[WeaponType.Schienenkanone] =
+TurretIngredients[WeaponType.Railgun] =
 {
     {name = "Servo",                amount = 15,   investable = 10, minimum = 5,   weaponStat = "fireRate", investFactor = 1.0, changeType = StatChanges.Percentage},
     {name = "Electromagnetic Charge",amount = 5,   investable = 6,  minimum = 1,   weaponStat = "damage", investFactor = 0.75,},
@@ -170,6 +170,6 @@ TurretIngredients[WeaponType.HCG] =
     {name = "Ammunition M",         amount = 5,     investable = 10,    minimum = 1,    weaponStat = "damage", investFactor = 0.25},
     {name = "Explosive Charge",     amount = 2,     investable = 4,     minimum = 1,    weaponStat = "damage", investFactor = 0.75},
     {name = "Steel",                amount = 5,     investable = 10,    minimum = 3,},
-    {name = "Aluminum",            amount = 7,     investable = 5,     minimum = 3,},
+    {name = "Aluminum",             amount = 7,     investable = 5,     minimum = 3,},
     {name = "Targeting System",     amount = 0,     investable = 2,     minimum = 0, turretStat = "automatic", investFactor = 1, changeType = StatChanges.Flat},
 }

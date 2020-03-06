@@ -11,31 +11,28 @@ local energyPerHull = 50000
 FixedEnergyRequirement = false
 local energyNeeded = 0
 
-updateCycle= 1
+updateCycle = 1
 
 function getUpdateInterval()
     return updateCycle
 end
 
 function update(timePassed)
-    local repairAmountPercent , energySavePercent= getBonuses(getSeed(), getRarity(), getPermanent()) -- in % of max shields
-
+    local repairAmountPercent, energySavePercent= getBonuses(getSeed(), getRarity(), getPermanent()) -- in % of max shields
     local maxHull = Entity().maxDurability -- loaded, can change in combat when blocks get destroyed
     local durability = Entity().durability
     local repairAmount = (maxHull/100) *repairAmountPercent
 
-    
-    Entity().durability= durability + repairAmount
+    Entity().durability = durability + repairAmount
     energyNeeded= maxHull * energyPerHull * energySavePercent
-
 end
 
 function getBonuses(seed, rarity, permanent)
     math.randomseed(seed)
 
-    local baseamountRepair= ((rarity.value +1) /6)*(1/10) * math.random()
-    local bonusRepairAmountPercent =  ((((math.random()*0.25) +0.25 )* ((rarity.value +1) /6)))/5 -- 0 - 1%
-    local energySavePercent =1
+    local baseamountRepair = ((rarity.value +1) /6)*(1/10) * math.random()
+    local bonusRepairAmountPercent = ((((math.random()*0.25) +0.25 )* ((rarity.value +1) /6)))/5 -- 0 - 1%
+    local energySavePercent = 1
 
 
     if permanent then
@@ -46,7 +43,6 @@ function getBonuses(seed, rarity, permanent)
 end
 
 function onInstalled(seed, rarity, permanent)
-
 end
 
 function onUninstalled(seed, rarity, permanent)
@@ -61,7 +57,7 @@ function getIcon(seed, rarity)
 end
 
 function getEnergy(seed, rarity, permanent)
-    return energyNeeded 
+    return energyNeeded
 end
 
 function getPrice(seed, rarity)
@@ -70,20 +66,16 @@ function getPrice(seed, rarity)
 end
 
 function getTooltipLines(seed, rarity, permanent)
-
     local texts = {}
     local bonuses = {}
-
-    local repairAmountPercent, energySavePercent  = getBonuses(seed, rarity, permanent)
-    local repairAmountPercentnormal , energySavePercentnormal = getBonuses(seed, rarity, false)
-    local repairAmountPercentboost , energySavePercentboost = getBonuses(seed, rarity, true)
+    local repairAmountPercent, energySavePercent = getBonuses(seed, rarity, permanent)
+    local repairAmountPercentnormal, energySavePercentnormal = getBonuses(seed, rarity, false)
+    local repairAmountPercentboost, energySavePercentboost = getBonuses(seed, rarity, true)
 
     print(energySavePercent)
-    table.insert(texts, {ltext = "Repairs percent of the hull."%_t, rtext = string.format("%02.2f%%",  round(repairAmountPercentnormal,2)), icon = "data/textures/icons/repair.png", boosted = permanent})
-    table.insert(bonuses, {ltext =  "Repairs percent of the hull."%_t, rtext = string.format("%02.2f%%", round(repairAmountPercentboost-repairAmountPercentnormal,2)), icon = "data/textures/icons/repair.png"})
-
-    table.insert(bonuses, {ltext =  "Energy saved."%_t, rtext = string.format("%02.2f%%",round(100-(energySavePercentboost*100),2) ), icon = "data/textures/icons/power-unit.png"})
-
+    table.insert(texts,   {ltext = "Repairs percent of the hull."%_t, rtext = string.format("%02.2f%%",  round(repairAmountPercentnormal,2)), icon = "data/textures/icons/repair.png", boosted = permanent})
+    table.insert(bonuses, {ltext = "Repairs percent of the hull."%_t, rtext = string.format("%02.2f%%", round(repairAmountPercentboost-repairAmountPercentnormal,2)), icon = "data/textures/icons/repair.png"})
+    table.insert(bonuses, {ltext = "Energy saved."%_t, rtext = string.format("%02.2f%%",round(100-(energySavePercentboost*100),2) ), icon = "data/textures/icons/power-unit.png"})
 
     return texts, bonuses
 end
